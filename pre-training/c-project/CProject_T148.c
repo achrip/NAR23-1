@@ -119,15 +119,48 @@ void loadGame(){
 void settings(){
     system("cls");
     gotoxy(5,2);
-    printf("Welcome to the game!\n\nBasic Movement\n'w' - Move Up\n'a' - Move Left\n's' - Move Down\n'd' - Move Right\n\n");
+    printf("Welcome to the game!\n\n");
 
+    gotoxy(5,4);
+    printf("Basic Movement\n");
+    gotoxy(5,5);
+    printf("'w' - Move Up\n");
+    gotoxy(5,6);
+    printf("'a' - Move Left\n");
+    gotoxy(5,7);
+    printf("'s' - Move Down\n");
+    gotoxy(5,8);
+    printf("'d' - Move Right\n\n");
+
+    gotoxy(5,10);
+    printf("Lobby Arena\n");
+    gotoxy(5,11);
+    printf("'SPACE' - Intersect\n");
     gotoxy(5,12);
-    printf("Lobby Arena\n'SPACE' - Intersect\n'y' - Talk\n'o' - Open Backpack\n\nGame Arena\n'SPACE' - Shoot\n'r' - Reload\n");
- 
+    printf("'y' - Talk\n");
+    gotoxy(5,13);
+    printf("'o' - Open Backpack\n\n");
+
+    gotoxy(5,15);
+    printf("Game Arena\n");
+    gotoxy(5,16);
+    printf("'SPACE' - Shoot\n");
+    gotoxy(5,17);
+    printf("'r' - Reload\n");
+    gotoxy(5,18);
+    printf("'f' - Skill \n");
+    gotoxy(5,19);
+    printf("'1' - Use Potion\n");
     gotoxy(5,20);
-    printf("'f' - Skill \n'1' - Use Potion\n'2' - Use Max Potion\n'3' - Use Energy\n'4' - Use Max Energy\n'g' - Use Bomb\n\n");
-  
-    gotoxy(5,27);
+    printf("'2' - Use Max Potion\n");
+    gotoxy(5,21);
+    printf("'3' - Use Energy\n");
+    gotoxy(5,22);
+    printf("'4' - Use Max Energy\n");
+    gotoxy(5,23);
+    printf("'g' - Use Bomb\n\n");
+
+    gotoxy(5,25);
     printf("Back to menu ? [press enter]");
     getch();
     // read enter then goto menu
@@ -136,12 +169,25 @@ void settings(){
 
 void manual(){
     system("cls");
+    gotoxy(5,2); 
     printf("Space Invader\n\n\n");
 
-    printf("The object if the game is, basically, to shoot the invaders with your shooter\nwhile avoiding their shots and preventing an invasion Amassing a high scoree is a further\nobjective and one that must be prioritised against your continued survival.\n\n\n");
-    printf("There is no time limit,\nexcept for the fact that if you do not shoot them all before they reach\nthe bottom of the screen the game ends.\n\n\n");
+    gotoxy(5,5); 
+    printf("The object if the game is, basically, to shoot the invaders with your shooter\n");
+    gotoxy(5,6); 
+    printf("while avoiding their shots and preventing an invasion Amassing a high scoree is a further\n");
+    gotoxy(5,7); 
+    printf("objective and one that must be prioritised against your continued survival.\n\n\n");
+    gotoxy(5,10); 
+    printf("There is no time limit,\n");
+    gotoxy(5,11); 
+    printf("except for the fact that if you do not shoot them all before they reach\n");
+    gotoxy(5,12); 
+    printf("the bottom of the screen the game ends.\n\n\n");
+    gotoxy(5,15); 
     printf("Credit : TinTin Winata\n\n");
     
+    gotoxy(5,17); 
     printf("Back to menu ? [press enter]");
     getch();
     // read enter then goto menu
@@ -152,7 +198,7 @@ void logout(){
     FILE *asset = fopen("./assets/logo.txt", "r");
 
     char c;
-
+    gotoxy(5,1);
     while(!feof(asset)){
         c = getc(asset);
         printf("%c", c);
