@@ -1,19 +1,20 @@
 #include <stdio.h>
 #include <string.h>
-#include <ncurses.h>
+#include <stdlib.h>
+#include <conio.h>
 #include <unistd.h>
+#include <windows.h>
 
 
 void newGame();
 void loadGame();
 void settings();
 void manual();
-void exit();
+void logout();
 
 int main(){
+    system("cls");
     int choose; 
-    initscr();
-    raw();
     printf("1. NEW GAME\n");
     printf("2. LOAD GAME\n");
     printf("3. SETTING\n");
@@ -35,7 +36,7 @@ int main(){
             manual();
             break;
         case 5: 
-            //exit();
+            logout();
             break;
         default : 
             break;
@@ -46,6 +47,7 @@ int main(){
 }
 
 void newGame(){
+    system("cls");
     char uname [10001];
 
     printf("Select Your New Name: ");
@@ -62,6 +64,7 @@ void loadGame(){
 }
 
 void settings(){
+    system("cls");
     printf("Welcome to the game!\n\n");
 
     printf("Basic Movement\n");
@@ -91,6 +94,7 @@ void settings(){
 }
 
 void manual(){
+    system("cls");
     printf("Space Invader\n\n\n");
 
     printf("The object if the game is, basically, to shoot the invaders with your shooter\nwhile avoiding their shots and preventing an invasion Amassing a high scoree is a further\nobjective and one that must be prioritised against your continued survival.\n\n\n");
@@ -99,4 +103,30 @@ void manual(){
     
     printf("Back to menu ? [press enter]");
     // read enter then goto menu
+}
+
+void logout(){
+    system("cls");
+    FILE *asset = fopen("./assets/logo.txt", "r");
+
+    char c;
+
+    while(!feof(asset)){
+        c = getc(asset);
+        printf("%c", c);
+        Sleep(0.9);
+    };
+    puts("");
+    puts("");
+
+    char message[]={"Alongside courage and perseverance, we shape and define our future.\nJT 22-1."};
+
+    for (int i=0; i<strlen(message); i++){
+        printf("%c", message[i]);
+        Sleep(0.7);
+    }
+
+    fclose(asset);
+
+    getch();
 }
