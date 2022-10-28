@@ -47,7 +47,7 @@ void gotoxy(int x, int y)
 int menuSelect(int i){
     // char choose;
     for (int i=0; i<5; i++){
-        gotoxy(5,i+4);
+        gotoxy(5,i+2);
         for (int j=0; j<20; j++){
             printf("%c", menu[i][j]); 
         }
@@ -100,6 +100,7 @@ int menuSelect(int i){
 
 void newGame(){
     system("cls");
+    gotoxy(5,2);
     char uname [10001];
 
     printf("Select Your New Name: ");
@@ -117,29 +118,16 @@ void loadGame(){
 
 void settings(){
     system("cls");
-    printf("Welcome to the game!\n\n");
+    gotoxy(5,2);
+    printf("Welcome to the game!\n\nBasic Movement\n'w' - Move Up\n'a' - Move Left\n's' - Move Down\n'd' - Move Right\n\n");
 
-    printf("Basic Movement\n");
-    printf("'w' - Move Up\n");
-    printf("'a' - Move Left\n");
-    printf("'s' - Move Down\n");
-    printf("'d' - Move Right\n\n");
-
-    printf("Lobby Arena\n");
-    printf("'SPACE' - Intersect\n");
-    printf("'y' - Talk\n");
-    printf("'o' - Open Backpack\n\n");
-
-    printf("Game Arena\n");
-    printf("'SPACE' - Shoot\n");
-    printf("'r' - Reload\n");
-    printf("'f' - Skill \n");
-    printf("'1' - Use Potion\n");
-    printf("'2' - Use Max Potion\n");
-    printf("'3' - Use Energy\n");
-    printf("'4' - Use Max Energy\n");
-    printf("'g' - Use Bomb\n\n");
-
+    gotoxy(5,12);
+    printf("Lobby Arena\n'SPACE' - Intersect\n'y' - Talk\n'o' - Open Backpack\n\nGame Arena\n'SPACE' - Shoot\n'r' - Reload\n");
+ 
+    gotoxy(5,20);
+    printf("'f' - Skill \n'1' - Use Potion\n'2' - Use Max Potion\n'3' - Use Energy\n'4' - Use Max Energy\n'g' - Use Bomb\n\n");
+  
+    gotoxy(5,27);
     printf("Back to menu ? [press enter]");
     getch();
     // read enter then goto menu
