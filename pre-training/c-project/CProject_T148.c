@@ -15,6 +15,7 @@ void loadGame();
 void settings();
 void manual();
 void logout();
+void gameLobby();
 
 char menu[5][20]={
     {"NEW GAME           <"},
@@ -45,7 +46,6 @@ void gotoxy(int x, int y)
 }
 
 int menuSelect(int i){
-    // char choose;
     for (int i=0; i<5; i++){
         gotoxy(5,i+2);
         for (int j=0; j<20; j++){
@@ -100,6 +100,7 @@ int menuSelect(int i){
 
 void newGame(){
     system("cls");
+    FILE *data = fopen("./database/player.dat", "r");
     gotoxy(5,2);
     char uname [10001];
 
@@ -109,7 +110,17 @@ void newGame(){
         getchar(); 
     } while (strlen(uname) < 3);
 
-    // add filepointer to crosscheck database with input
+    while (!feof(data)){
+        fscanf(data, "%[^#]#\n"); 
+    }
+
+    // if (strcmp(uname, "player from database")){
+    //     printf("Sorry but name already exists! [press enter]");
+    //     return; 
+    // } else {
+        gameLobby(); 
+    // }
+
 }
 
 void loadGame(){
@@ -218,4 +229,15 @@ void logout(){
 
     getch();
     exit(0);
+}
+
+void gameLobby(){
+    FILE *lobbyMap = fopen("./assets/lobby.txt", "r"); 
+
+    char c; 
+
+    while (!feof(lobbyMap)){
+        putc("%c", lobbyMap);
+    }
+    
 }
