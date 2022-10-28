@@ -82,34 +82,46 @@ int menuSelect(int i){
     }
     char choose = getch();
 
-    // while (TRUE){
-         switch (choose){
-            case 'w':
-                menu[i][19] = ' ';
-                i--;
-                if (i<0) i=0; 
-                menu[i][19] = '<';
-                break;
+    switch (choose){
+    case 'w':
+        menu[i][19] = ' ';
+        i--;
+        if (i<0) i=0; 
+        menu[i][19] = '<';
+        break;
 
-            case 's':
-                menu[i][19] = ' '; 
-                i++;
-                if (i>4) i=4; 
-                menu[i][19] = '<';
-                break;
+    case 's':
+        menu[i][19] = ' '; 
+        i++;
+        if (i>4) i=4; 
+        menu[i][19] = '<';
+        break;
 
-            case '\r':
-                
+    case '\r':
+        switch (i){
+            case 0: 
+                newGame();
                 break;
-         }
+            case 1: 
+                //loadGame();
+                break;
+            case 2: 
+                settings();
+                break;
+            case 3: 
+                manual();
+                break;
+            case 4: 
+                logout();
+                break;
+            default : 
+                break;
+        }
+
+        break;
+    }
 
     return i; 
-
-    // }
-
-
-
-
 }
 
 void newGame(){
