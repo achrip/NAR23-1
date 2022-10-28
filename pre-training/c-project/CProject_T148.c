@@ -13,34 +13,37 @@ void manual();
 void logout();
 
 int main(){
-    system("cls");
     int choose; 
-    printf("1. NEW GAME\n");
-    printf("2. LOAD GAME\n");
-    printf("3. SETTING\n");
-    printf("4. HOW TO PLAY\n");
-    printf("5. EXIT\n");
-    printf(">> "); scanf ("%d", &choose);
+    do {
+        system("cls");
+        printf("1. NEW GAME\n");
+        printf("2. LOAD GAME\n");
+        printf("3. SETTING\n");
+        printf("4. HOW TO PLAY\n");
+        printf("5. EXIT\n");
+        printf(">> "); scanf ("%d", &choose);
 
-    switch (choose){
-        case 1: 
-            newGame();
-            break;
-        case 2: 
-            //loadGame();
-            break;
-        case 3: 
-            settings();
-            break;
-        case 4: 
-            manual();
-            break;
-        case 5: 
-            logout();
-            break;
-        default : 
-            break;
-    }
+        switch (choose){
+            case 1: 
+                newGame();
+                break;
+            case 2: 
+                //loadGame();
+                break;
+            case 3: 
+                settings();
+                break;
+            case 4: 
+                manual();
+                break;
+            case 5: 
+                logout();
+                break;
+            default : 
+                break;
+        
+        }
+    } while (choose>=1 && choose<=5);
 
     return 0; 
     
@@ -89,6 +92,7 @@ void settings(){
     printf("'g' - Use Bomb\n\n");
 
     printf("Back to menu ? [press enter]");
+    getch();
     // read enter then goto menu
 
 }
@@ -102,6 +106,7 @@ void manual(){
     printf("Credit : TinTin Winata\n\n");
     
     printf("Back to menu ? [press enter]");
+    getch();
     // read enter then goto menu
 }
 
@@ -123,10 +128,11 @@ void logout(){
 
     for (int i=0; i<strlen(message); i++){
         printf("%c", message[i]);
-        Sleep(0.7);
+        Sleep(1.2);
     }
 
     fclose(asset);
 
     getch();
+    exit(0);
 }
