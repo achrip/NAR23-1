@@ -8,7 +8,7 @@
 // #include <pdcurses/curses.h>
 
 
-// void gotoxy();
+void gotoxy();
 int menuSelect();
 void newGame();
 void loadGame();
@@ -32,53 +32,27 @@ int main(){
     do {
         system("cls");
         i = menuSelect(i);
-    //     printf("1. NEW GAME\n");
-    //     printf("2. LOAD GAME\n");
-    //     printf("3. SETTING\n");
-    //     printf("4. HOW TO PLAY\n");
-    //     printf("5. EXIT\n");
-    //     printf(">> "); 
-    //     scanf ("%d", &choose);
-
-    //     switch (choose){
-    //         case 1: 
-    //             newGame();
-    //             break;
-    //         case 2: 
-    //             //loadGame();
-    //             break;
-    //         case 3: 
-    //             settings();
-    //             break;
-    //         case 4: 
-    //             manual();
-    //             break;
-    //         case 5: 
-    //             logout();
-    //             break;
-    //         default : 
-    //             break;
-        
-    //     }
     } while (TRUE);
 
     return 0; 
     
 }
 
-// void gotoxy(int x, int y)
-// {
-//     COORD c = { x, y };  
-//     SetConsoleCursorPosition(  GetStdHandle(STD_OUTPUT_HANDLE) , c);
-// }
+void gotoxy(int x, int y)
+{
+    COORD c = { x, y };  
+    SetConsoleCursorPosition(  GetStdHandle(STD_OUTPUT_HANDLE) , c);
+}
 
 int menuSelect(int i){
     // char choose;
     for (int i=0; i<5; i++){
+        gotoxy(5,i+4);
         for (int j=0; j<20; j++){
             printf("%c", menu[i][j]); 
         }
         puts("");
+        
     }
     char choose = getch();
 
