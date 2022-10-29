@@ -120,8 +120,8 @@ void playerData(){
 
     playerIndex=0; 
     while(!feof(data)){
-        fscanf(data, "%[^#]#%d#%d#%d#%d#%d#%d#%d\n", allPlayer[playerIndex].name, allPlayer[playerIndex].money, allPlayer[playerIndex].exp,
-        allPlayer[playerIndex].level, allPlayer[playerIndex].hp, allPlayer[playerIndex].energy, allPlayer[playerIndex].armor, allPlayer[playerIndex].damage);
+        fscanf(data, "%[^#]#%d#%d#%d#%d#%d#%d#%d\n", allPlayer[playerIndex].name, &allPlayer[playerIndex].money, &allPlayer[playerIndex].exp,
+        &allPlayer[playerIndex].level, &allPlayer[playerIndex].hp, &allPlayer[playerIndex].energy, &allPlayer[playerIndex].armor, &allPlayer[playerIndex].damage);
         playerIndex++;
     };
 
@@ -144,13 +144,9 @@ void newGame(){
             gotoxy(5,2);
             printf("Sorry but name already exists! [press enter]");
             getch(); 
-            return; 
+            // return; 
         }
     }
-
-
-
-
 }
 
 void loadGame(){
@@ -248,7 +244,7 @@ void logout(){
     puts("");
     puts("");
 
-    char message[]={"\tAlongside courage and perseverance, we shape and define our future.\nJT 22-1."};
+    char message[]={"\tAlongside courage and perseverance, we shape and define our future.\n\tJT 22-1."};
 
     for (int i=0; i<strlen(message); i++){
         printf("%c", message[i]);
