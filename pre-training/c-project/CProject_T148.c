@@ -10,12 +10,15 @@
 
 void gotoxy();
 int menuSelect();
+void playerData(); 
 void newGame();
 void loadGame();
 void settings();
 void manual();
 void logout();
 void gameLobby();
+
+
 
 char menu[5][20]={
     {"NEW GAME           <"},
@@ -25,10 +28,24 @@ char menu[5][20]={
     {"EXIT                "}, 
 };
 
+struct player{
+    char name[255]; 
+    int money; 
+    int exp; 
+    int level; 
+    int hp; 
+    int energy; 
+    int armor; 
+    int damage; 
+}allPlayer[100], currentPlayer;
+
+int playerIndex;
+
 int main(){
     int choose; 
     int i=0; 
 
+    playerData(); 
 
     do {
         system("cls");
@@ -39,8 +56,7 @@ int main(){
     
 }
 
-void gotoxy(int x, int y)
-{
+void gotoxy(int x, int y){
     COORD c = { x, y };  
     SetConsoleCursorPosition(  GetStdHandle(STD_OUTPUT_HANDLE) , c);
 }
@@ -54,6 +70,7 @@ int menuSelect(int i){
         puts("");
         
     }
+    gotoxy(0,0);
     char choose = getch();
 
     switch (choose){
@@ -98,33 +115,46 @@ int menuSelect(int i){
     return i; 
 }
 
+void playerData(){
+    FILE *data = fopen("./database/player.dat", "r");
+
+    playerIndex=0; 
+    while(!feof(data)){
+        fscanf(data, "%[^#]#%d#%d#%d#%d#%d#%d#%d\n", allPlayer[playerIndex].name, allPlayer[playerIndex].money, allPlayer[playerIndex].exp,
+        allPlayer[playerIndex].level, allPlayer[playerIndex].hp, allPlayer[playerIndex].energy, allPlayer[playerIndex].armor, allPlayer[playerIndex].damage);
+        playerIndex++;
+    };
+
+    fclose(data);
+}
+
 void newGame(){
     system("cls");
-    FILE *data = fopen("./database/player.dat", "r");
     gotoxy(5,2);
-    char uname [10001];
+
 
     printf("Select Your New Name: ");
     do {
-        scanf("%s", uname);
+        scanf("%s", currentPlayer.name);
         getchar(); 
-    } while (strlen(uname) < 3);
+    } while (strlen(currentPlayer.name) < 3);
 
-    while (!feof(data)){
-        fscanf(data, "%[^#]#\n"); 
+    for (int i=0; i<playerIndex; i++){
+        if ((strcmpi(currentPlayer.name, allPlayer[playerIndex].name))==0){
+            gotoxy(5,2);
+            printf("Sorry but name already exists! [press enter]");
+            getch(); 
+            return; 
+        }
     }
 
-    // if (strcmp(uname, "player from database")){
-    //     printf("Sorry but name already exists! [press enter]");
-    //     return; 
-    // } else {
-        gameLobby(); 
-    // }
+
+
 
 }
 
 void loadGame(){
-    // show player data by format num. [uname] [Level : n]
+    // show player data by format num. [currentPlayer.name] [Level : n]
 }
 
 void settings(){
@@ -209,7 +239,7 @@ void logout(){
     FILE *asset = fopen("./assets/logo.txt", "r");
 
     char c;
-    gotoxy(5,1);
+    // gotoxy(5,1);
     while(!feof(asset)){
         c = getc(asset);
         printf("%c", c);
@@ -218,7 +248,7 @@ void logout(){
     puts("");
     puts("");
 
-    char message[]={"Alongside courage and perseverance, we shape and define our future.\nJT 22-1."};
+    char message[]={"\tAlongside courage and perseverance, we shape and define our future.\nJT 22-1."};
 
     for (int i=0; i<strlen(message); i++){
         printf("%c", message[i]);
@@ -234,10 +264,10 @@ void logout(){
 void gameLobby(){
     FILE *lobbyMap = fopen("./assets/lobby.txt", "r"); 
 
-    char c; 
+    char c[1000][1000]; 
 
     while (!feof(lobbyMap)){
-        putc("%c", lobbyMap);
+        fprintf(lobbyMap, "%[^\n]", c);
     }
     
 }
