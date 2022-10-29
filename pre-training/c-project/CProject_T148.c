@@ -129,24 +129,24 @@ void playerData(){
 }
 
 void newGame(){
-    system("cls");
-    gotoxy(5,2);
-
-
-    printf("Select Your New Name: ");
     do {
+        system("cls");
+        gotoxy(5,2);
+        printf("Select Your New Name: ");
         scanf("%s", currentPlayer.name);
         getchar(); 
     } while (strlen(currentPlayer.name) < 3);
 
     for (int i=0; i<playerIndex; i++){
-        if ((strcmpi(currentPlayer.name, allPlayer[playerIndex].name))==0){
-            gotoxy(5,2);
+        if ((strcmpi(currentPlayer.name, allPlayer[i].name))==0){
+            gotoxy(5,4);
             printf("Sorry but name already exists! [press enter]");
             getch(); 
-            // return; 
+            return; 
         }
     }
+
+    gameLobby();
 }
 
 void loadGame(){
@@ -258,12 +258,21 @@ void logout(){
 }
 
 void gameLobby(){
+    system("cls");
     FILE *lobbyMap = fopen("./assets/lobby.txt", "r"); 
 
-    char c[1000][1000]; 
+    char s[1000][1000];
+    int i=0, j=0; 
 
     while (!feof(lobbyMap)){
-        fprintf(lobbyMap, "%[^\n]", c);
+        fscanf(lobbyMap, "%[^\n]\n", s[i]);
+        i++; 
+    }
+
+    for (int i=0; i<22; i++){
+        gotoxy(5, i+1);
+        printf("%s\n", s[i]); 
     }
     
+    getch();
 }
