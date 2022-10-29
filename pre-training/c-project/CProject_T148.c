@@ -261,7 +261,7 @@ void gameLobby(){
     system("cls");
     FILE *lobbyMap = fopen("./assets/lobby.txt", "r"); 
 
-    char s[1000][1000];
+    char s[1000][1000], action;
     int i=0, j=0; 
     int posX=20, posY=17, tmp;
 
@@ -292,47 +292,55 @@ void gameLobby(){
                 tmp = posY;
                 posY--;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
-                s[posX][posY]=='-' || s[posX][posY]=='|',
-                s[posX][posY]=='\\', s[posX][posY]=='.'){
+                s[posX][posY]=='-' || s[posX][posY]=='|' ||
+                s[posX][posY]=='\\' || s[posX][posY]=='.'){
                     posY++; 
                     s[posX][posY] = 'P';
                     break;
                 } else if (s[posX][posY]=='I'){
                     posY++;  
                     s[posX][posY] = 'P';
-                    gotoxy(14, 40);
+                    gotoxy(45,15);
                     printf("Press SPACE to interact");
-                    char action = getch();
+                     action = getch();
 
                     if (action == ' '){
                         char itemShop[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
 
                         for (int i=0; i<2; i++){
-                            gotoxy(11+i, 40);
+                            gotoxy(45, 12+i);
                             for (int j=0; j<strlen(itemShop[i]); j++){
                                 printf("%c", itemShop[i][j]);
                                 Sleep(1.2);
                             }   
                         }
+                        action = getch(); 
+
+                        if (action == 'y'); //goto shop
+                        if (action == 'n') break;
                     }             
 
                 } else if (s[posX][posY]=='U'){
                     posY++; 
                     s[posX][posY] = 'P';
-                    gotoxy(14, 40);
+                    gotoxy(45,15);
                     printf("Press SPACE to interact");
-                    char action = getch();
+                     action = getch();
 
                     if (action == ' '){
                         char upgradeShop[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
 
                         for (int i=0; i<2; i++){
-                            gotoxy(11+i, 40);
+                            gotoxy(45, 12+i);
                             for (int j=0; j<strlen(upgradeShop[i]); j++){
                                 printf("%c", upgradeShop[i][j]);
                                 Sleep(1.2);
                             }   
                         }
+                        action = getch(); 
+
+                        if (action == 'y'); //goto shop
+                        if (action == 'n') break;
                     }             
 
                 } else{
@@ -345,47 +353,55 @@ void gameLobby(){
                 tmp = posY;
                 posY++;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
-                s[posX][posY]=='-' || s[posX][posY]=='|',
-                s[posX][posY]=='\\', s[posX][posY]=='.'){
+                s[posX][posY]=='-' || s[posX][posY]=='|' ||
+                s[posX][posY]=='\\' || s[posX][posY]=='.'){
                     posY--; 
                     s[posX][posY] = 'P';
                     break;
                 } else if (s[posX][posY]=='I'){
                     posY--; 
                     s[posX][posY] = 'P';
-                    gotoxy(14, 40);
+                    gotoxy(45,15);
                     printf("Press SPACE to interact");
-                    char action = getch();
+                     action = getch();
 
                     if (action == ' '){
                         char itemShop[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
 
                         for (int i=0; i<2; i++){
-                            gotoxy(11+i, 40);
+                            gotoxy(45, 12+i);
                             for (int j=0; j<strlen(itemShop[i]); j++){
                                 printf("%c", itemShop[i][j]);
                                 Sleep(1.2);
                             }   
                         }
+                        action = getch(); 
+
+                        if (action == 'y'); //goto shop
+                        if (action == 'n') break;
                     }             
 
                 } else if (s[posX][posY]=='U'){
                     posY--; 
                     s[posX][posY] = 'P';
-                    gotoxy(14, 40);
+                    gotoxy(45,15);
                     printf("Press SPACE to interact");
-                    char action = getch();
+                     action = getch();
 
                     if (action == ' '){
                         char upgradeShop[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
 
                         for (int i=0; i<2; i++){
-                            gotoxy(11+i, 40);
+                            gotoxy(45, 12+i);
                             for (int j=0; j<strlen(upgradeShop[i]); j++){
                                 printf("%c", upgradeShop[i][j]);
                                 Sleep(1.2);
                             }   
                         }
+                        action = getch(); 
+
+                        if (action == 'y'); //goto shop
+                        if (action == 'n') break;
                     }             
 
                 } else{
@@ -398,49 +414,63 @@ void gameLobby(){
                 tmp = posX;
                 posX--;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
-                s[posX][posY]=='-' || s[posX][posY]=='|',
-                s[posX][posY]=='\\', s[posX][posY]=='.'){
+                s[posX][posY]=='-' || s[posX][posY]=='|' ||
+                s[posX][posY]=='\\' || s[posX][posY]=='.'){
                     posX++; 
                     s[posX][posY] = 'P';
                     break;
                 } else if (s[posX][posY]=='I'){
                     posX++; 
                     s[posX][posY] = 'P';
-                    gotoxy(14, 40);
+                    gotoxy(45,15);
                     printf("Press SPACE to interact");
-                    char action = getch();
+                     action = getch();
 
                     if (action == ' '){
                         char itemShop[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
 
                         for (int i=0; i<2; i++){
-                            gotoxy(11+i, 40);
+                            gotoxy(45, 12+i);
                             for (int j=0; j<strlen(itemShop[i]); j++){
                                 printf("%c", itemShop[i][j]);
                                 Sleep(1.2);
                             }   
                         }
+                        action = getch(); 
+
+                        if (action == 'y'); //goto shop
+                        if (action == 'n') break;
                     }             
 
                 } else if (s[posX][posY]=='U'){
                     posX++; 
                     s[posX][posY] = 'P';
-                    gotoxy(14, 40);
+                    gotoxy(45,15);
                     printf("Press SPACE to interact");
-                    char action = getch();
+                     action = getch();
 
                     if (action == ' '){
                         char upgradeShop[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
 
                         for (int i=0; i<2; i++){
-                            gotoxy(11+i, 40);
+                            gotoxy(45, 12+i);
                             for (int j=0; j<strlen(upgradeShop[i]); j++){
                                 printf("%c", upgradeShop[i][j]);
                                 Sleep(1.2);
                             }   
                         }
+                        action = getch(); 
+
+                        if (action == 'y'); //goto shop
+                        if (action == 'n') break;
                     }             
 
+                } else if(posX == 9){
+                    gotoxy(40,15); 
+                    printf("Press SPACE to interact");
+                     action = getch(); 
+
+                    if (action == ' ') gamePlay();
                 } else{
                     s[posX][posY] = 'P';
                     s[tmp][posY] = ' ';
@@ -451,55 +481,68 @@ void gameLobby(){
                 tmp = posX;
                 posX++;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
-                s[posX][posY]=='-' || s[posX][posY]=='|',
-                s[posX][posY]=='\\', s[posX][posY]=='.'){
+                s[posX][posY]=='-' || s[posX][posY]=='|' ||
+                s[posX][posY]=='\\' || s[posX][posY]=='.'){
                     posX--; 
                     s[posX][posY] = 'P';
                     break;
                 } else if (s[posX][posY]=='I'){
                     posX--; 
                     s[posX][posY] = 'P';
-                    gotoxy(14, 40);
+                    gotoxy(45,15);
                     printf("Press SPACE to interact");
-                    char action = getch();
+                     action = getch();
 
                     if (action == ' '){
                         char itemShop[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
 
                         for (int i=0; i<2; i++){
-                            gotoxy(11+i, 40);
+                            gotoxy(45, 12+i);
                             for (int j=0; j<strlen(itemShop[i]); j++){
                                 printf("%c", itemShop[i][j]);
                                 Sleep(1.2);
                             }   
                         }
+                        action = getch(); 
+
+                        if (action == 'y'); //goto shop
+                        if (action == 'n') break;
                     }             
 
                 } else if (s[posX][posY]=='='){
-                    posY--; 
+                    posX--; 
                     s[posX][posY] = 'P';
-                    gotoxy(14, 40);
+                    gotoxy(45, 15);
                     printf("Press SPACE to exit");
-                    char action = getch();
+                     action = getch();
 
-                    if (action == ' '); menuSelect(0);  
+                    if (action == ' ') return;  
+                    if (action == 'w'){
+                        posX--;
+                        s[posX][posY] = 'P';
+                        s[tmp][posY] = ' ';
+                    }
                 } else if (s[posX][posY]=='U'){
                     posX--; 
                     s[posX][posY] = 'P';
-                    gotoxy(14, 40);
+                    gotoxy(45,15);
                     printf("Press SPACE to interact");
-                    char action = getch();
+                     action = getch();
 
                     if (action == ' '){
                         char upgradeShop[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
 
                         for (int i=0; i<2; i++){
-                            gotoxy(11+i, 40);
+                            gotoxy(45, 12+i);
                             for (int j=0; j<strlen(upgradeShop[i]); j++){
                                 printf("%c", upgradeShop[i][j]);
                                 Sleep(1.2);
                             }   
                         }
+                        action = getch(); 
+
+                        if (action == 'y'); //goto shop
+                        if (action == 'n') break;
                     }             
 
                 } else{
@@ -510,7 +553,8 @@ void gameLobby(){
         }
 
     }
+}
 
-    
+void gamePlay(){
     getch();
 }
