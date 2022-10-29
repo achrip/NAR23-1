@@ -248,7 +248,7 @@ void logout(){
 
     for (int i=0; i<strlen(message); i++){
         printf("%c", message[i]);
-        Sleep(1.2);
+        Sleep(1.5);
     }
 
     fclose(asset);
@@ -271,11 +271,12 @@ void gameLobby(){
     }
 
     while(TRUE){
+        system("cls");
         for (int i=0; i<22; i++){
             gotoxy(5, i+1);
             printf("%s\n", s[i]); 
 
-            if (i==19) s[19][18] = 'P';
+            if (i==19) s[posX][posY] = 'P';
             if (currentPlayer.level < 10 ){
                 s[6][6] = '-';
                 s[6][7] = '-';
@@ -302,10 +303,11 @@ void gameLobby(){
                 s[posX][posY++]=='-' || s[posX][posY++]=='|'){
                     break;
                 } else if (s[posX++][posY]=='='){
+                    gotoxy(14, 40);
                     printf("Press SPACE to exit");
                     char action = getch();
 
-                    if (action == ' '); //goto shop  
+                    if (action == ' '); menuSelect(0);  
                 } else{
                     s[posX][posY] = ' ';
                     s[posX][posY++] = 'P';
@@ -337,7 +339,17 @@ void gameLobby(){
                     printf("Press SPACE to interact");
                     char action = getch();
 
-                    if (action == ' '); //prompt user             
+                    if (action == ' '){
+                        char itemShop[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
+
+                        for (int i=0; i<2; i++){
+                            gotoxy(11+i, 40);
+                            for (int j=0; j<strlen(itemShop[i]); j++){
+                                printf("%c", itemShop[i][j]);
+                                Sleep(1.2);
+                            }   
+                        }
+                    }             
 
                 } else{
                     s[posX][posY] = ' ';
