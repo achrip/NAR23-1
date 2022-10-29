@@ -138,6 +138,7 @@ void newGame(){
         getchar(); 
         
         if (strlen(currentPlayer.name)<3){
+            gotoxy(5,4);
             printf("Please insert more than 3 characters [press enter]");
             getch();
         }
@@ -299,7 +300,7 @@ void gameLobby(){
                 posY--;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
                 s[posX][posY]=='-' || s[posX][posY]=='|' ||
-                s[posX][posY]=='\\' || s[posX][posY]=='.'){
+                s[posX][posY]=='\\' || s[posX][posY]=='.' || s[posX][posY]=='_'){
                     posY++; 
                     s[posX][posY] = 'P';
                     break;
@@ -360,7 +361,7 @@ void gameLobby(){
                 posY++;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
                 s[posX][posY]=='-' || s[posX][posY]=='|' ||
-                s[posX][posY]=='\\' || s[posX][posY]=='.'){
+                s[posX][posY]=='\\' || s[posX][posY]=='.' || s[posX][posY]=='_'){
                     posY--; 
                     s[posX][posY] = 'P';
                     break;
@@ -421,7 +422,7 @@ void gameLobby(){
                 posX--;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
                 s[posX][posY]=='-' || s[posX][posY]=='|' ||
-                s[posX][posY]=='\\' || s[posX][posY]=='.'){
+                s[posX][posY]=='\\' || s[posX][posY]=='.' || s[posX][posY]=='_'){
                     posX++; 
                     s[posX][posY] = 'P';
                     break;
@@ -488,7 +489,7 @@ void gameLobby(){
                 posX++;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
                 s[posX][posY]=='-' || s[posX][posY]=='|' ||
-                s[posX][posY]=='\\' || s[posX][posY]=='.'){
+                s[posX][posY]=='\\' || s[posX][posY]=='.' || s[posX][posY]=='_'){
                     posX--; 
                     s[posX][posY] = 'P';
                     break;
