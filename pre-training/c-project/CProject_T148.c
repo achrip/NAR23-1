@@ -17,6 +17,7 @@ void settings();
 void manual();
 void logout();
 void gameLobby();
+void gamePlay();
 
 
 
@@ -135,6 +136,11 @@ void newGame(){
         printf("Select Your New Name: ");
         scanf("%s", currentPlayer.name);
         getchar(); 
+        
+        if (strlen(currentPlayer.name)<3){
+            printf("Please insert more than 3 characters [press enter]");
+            getch();
+        }
     } while (strlen(currentPlayer.name) < 3);
 
     for (int i=0; i<playerIndex; i++){
@@ -465,7 +471,7 @@ void gameLobby(){
                         if (action == 'n') break;
                     }             
 
-                } else if(posX == 9){
+                } else if(posX == 9 && posY == 17){
                     gotoxy(40,15); 
                     printf("Press SPACE to interact");
                      action = getch(); 
