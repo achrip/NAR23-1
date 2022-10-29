@@ -263,16 +263,91 @@ void gameLobby(){
 
     char s[1000][1000];
     int i=0, j=0; 
+    int posX=19, posY=18;
 
     while (!feof(lobbyMap)){
         fscanf(lobbyMap, "%[^\n]\n", s[i]);
         i++; 
     }
 
-    for (int i=0; i<22; i++){
-        gotoxy(5, i+1);
-        printf("%s\n", s[i]); 
+    while(TRUE){
+        for (int i=0; i<22; i++){
+            gotoxy(5, i+1);
+            printf("%s\n", s[i]); 
+
+            if (i==19) s[19][18] = 'P';
+            if (currentPlayer.level < 10 ){
+                s[6][6] = '-';
+                s[6][7] = '-';
+                s[6][8] = '-';
+                s[6][9] = '-';
+            }
+        }
+
+        char mv = getch(); 
+
+        switch(mv){
+            case 'w':
+                if (s[posX][posY--]=='/' || s[posX][posY--]=='#' || 
+                s[posX][posY--]=='-' || s[posX][posY--]=='|'){
+                    break;
+                } else{
+                    s[posX][posY] = ' ';
+                    s[posX][posY--] = 'P';
+                }                
+                break;
+
+            case 's':
+               if (s[posX][posY++]=='/' || s[posX][posY++]=='#' || 
+                s[posX][posY++]=='-' || s[posX][posY++]=='|'){
+                    break;
+                } else if (s[posX++][posY]=='='){
+                    printf("Press SPACE to exit");
+                    char action = getch();
+
+                    if (action == ' '); //goto shop  
+                } else{
+                    s[posX][posY] = ' ';
+                    s[posX][posY++] = 'P';
+                }
+                break;
+
+            case 'a':
+                if (s[posX--][posY]=='/' || s[posX--][posY]=='#' || 
+                s[posX--][posY]=='-' || s[posX--][posY]=='|'){
+                    break;
+                } else if (s[posX--][posY]=='U'){
+                    gotoxy(14, 40);
+                    printf("Press SPACE to interact");
+                    char action = getch();
+
+                    if (action == ' '); //prompt user  
+                } else{
+                    s[posX][posY] = ' ';
+                    s[posX--][posY] = 'P';
+                }
+                break;
+
+            case 'd':
+                if (s[posX++][posY]=='/' || s[posX++][posY]=='#' || 
+                s[posX++][posY]=='-' || s[posX++][posY]=='|'){
+                    break;
+                } else if (s[posX++][posY]=='I'){
+                    gotoxy(14, 40);
+                    printf("Press SPACE to interact");
+                    char action = getch();
+
+                    if (action == ' '); //prompt user             
+
+                } else{
+                    s[posX][posY] = ' ';
+                    s[posX++][posY] = 'P';
+                }
+                break;
+        }
+
     }
+
     
     getch();
 }
