@@ -1,3 +1,7 @@
 #launcher files 
 *.exe
 *.exec
+
+#compressed files
+*.zip
+*.rar
