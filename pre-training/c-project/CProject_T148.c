@@ -158,6 +158,11 @@ void newGame(){
 
 void loadGame(){
     // show player data by format num. [currentPlayer.name] [Level : n]
+    FILE *data = fopen("./database/player.dat", "r");
+
+    while(!feof(data)){
+        
+    }
 }
 
 void settings(){
@@ -276,6 +281,10 @@ void gameLobby(){
         fscanf(lobbyMap, "%[^\n]\n", s[i]);
         i++; 
     }
+
+    s[16][6] = 'U';
+    s[16][27] = 'I';
+    s[20][17] = 'P';
 
     while(TRUE){
         system("cls");
