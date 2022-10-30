@@ -95,7 +95,7 @@ int menuSelect(int i){
                 newGame();
                 break;
             case 1: 
-                //loadGame();
+                loadGame();
                 break;
             case 2: 
                 settings();
@@ -158,11 +158,19 @@ void newGame(){
 
 void loadGame(){
     // show player data by format num. [currentPlayer.name] [Level : n]
-    FILE *data = fopen("./database/player.dat", "r");
+    gotoxy(5,2);
+    printf("Save Data : \n");
+    for (int i=0; i<=playerIndex; i++){
+        gotoxy(5, 3+i);
+        if (i == playerIndex){
+            printf("%d. Back", i+1);
+        } else{
+            printf("%d. %s [Level : %d]\n", i+1, allPlayer[i].name, allPlayer[i].level);
 
-    while(!feof(data)){
-        
-    }
+        }
+    }       
+    gotoxy(0,0);
+    getch();
 }
 
 void settings(){
