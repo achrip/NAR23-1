@@ -46,9 +46,9 @@ int main(){
     int choose; 
     int i=0; 
 
-    playerData(); 
 
     do {
+        playerData(); 
         system("cls");
         i = menuSelect(i);
     } while (TRUE);
@@ -166,7 +166,7 @@ void newGame(){
         currentPlayer.armor = 1; 
         currentPlayer.damage = 1;
 
-    fprintf(data, "%[^\n]#%d#%d#%d#%d#%d#%d#%d\n", currentPlayer.name, 
+    fprintf(data, "%s#%d#%d#%d#%d#%d#%d#%d\n", currentPlayer.name, 
     currentPlayer.money, currentPlayer.exp, currentPlayer.level, currentPlayer.hp, 
     currentPlayer.energy, currentPlayer.armor, currentPlayer.damage);
 
