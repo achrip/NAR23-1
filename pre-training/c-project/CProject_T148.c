@@ -198,7 +198,19 @@ void loadGame(){
             break;
         
         case '\r':
-            if (posX == 4) return; 
+            if (posX == playerIndex) return; 
+            else {
+                currentPlayer.name == allPlayer[posX].name;
+                currentPlayer.money == allPlayer[posX].money;
+                currentPlayer.exp == allPlayer[posX].exp;
+                currentPlayer.level == allPlayer[posX].level;
+                currentPlayer.hp == allPlayer[posX].hp;
+                currentPlayer.energy == allPlayer[posX].energy;
+                currentPlayer.armor == allPlayer[posX].armor;
+                currentPlayer.damage == allPlayer[posX].damage;
+
+                gameLobby();
+            }
             break; 
         }
     }
