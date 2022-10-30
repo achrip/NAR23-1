@@ -158,6 +158,7 @@ void newGame(){
 
 void loadGame(){
     // show player data by format num. [currentPlayer.name] [Level : n]
+    char cursorLoc[playerIndex][3];
     gotoxy(5,2);
     printf("Save Data : \n");
     for (int i=0; i<=playerIndex; i++){
@@ -168,7 +169,39 @@ void loadGame(){
             printf("%d. %s [Level : %d]\n", i+1, allPlayer[i].name, allPlayer[i].level);
 
         }
+        cursorLoc[i][1] = ' ';
     }       
+
+    int posX=0; 
+    int cursor = 0 ; 
+    cursorLoc[0][1] = '<'; 
+    while(TRUE){
+        for (int i=0; i<=playerIndex; i++){
+            gotoxy(30,3+i); 
+            printf("%c", cursorLoc[i][1]);
+        }
+
+        cursor = getch();
+        switch (cursor){
+        case 'w':
+            cursorLoc[posX][1] = ' ';
+            posX--; 
+            if (posX < 0) posX = 0; 
+            cursorLoc[posX][1] = '<';
+            break;
+        
+        case 's':
+            cursorLoc[posX][1] = ' ';
+            posX++; 
+            if (posX > playerIndex) posX = playerIndex; 
+            cursorLoc[posX][1] = '<';
+            break;
+        
+        case '\r':
+            if (posX == 4) return; 
+            break; 
+        }
+    }
     gotoxy(0,0);
     getch();
 }
