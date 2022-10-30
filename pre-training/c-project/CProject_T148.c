@@ -39,7 +39,7 @@ struct player{
     int energy; 
     int armor; 
     int damage; 
-}allPlayer[100], currentPlayer;
+}allPlayer[100], currentPlayer, temp;
 
 int playerIndex;
 
@@ -131,6 +131,40 @@ void playerData(){
     };
 
     fclose(data);
+
+    for (int i=0; i<playerIndex; i++){
+        for (int j=0; j<playerIndex-1-i; j++){
+            if (allPlayer[j].level < allPlayer[j+1].level){
+                strcpy(temp.name, allPlayer[j+1].name); 
+                temp.money = allPlayer[j+1].money;
+                temp.exp = allPlayer[j+1].exp;
+                temp.level = allPlayer[j+1].level;
+                temp.hp = allPlayer[j+1].hp;
+                temp.energy = allPlayer[j+1].energy;
+                temp.armor = allPlayer[j+1].armor;
+                temp.damage = allPlayer[j+1].damage;
+
+                strcpy(allPlayer[j+1].name, allPlayer[j].name);
+                allPlayer[j+1].money = allPlayer[j].money;
+                allPlayer[j+1].exp = allPlayer[j].exp;
+                allPlayer[j+1].level = allPlayer[j].level;
+                allPlayer[j+1].hp = allPlayer[j].hp;
+                allPlayer[j+1].energy = allPlayer[j].energy;
+                allPlayer[j+1].armor = allPlayer[j].armor;
+                allPlayer[j+1].damage = allPlayer[j].damage;
+
+                strcpy(allPlayer[j].name, temp.name);
+                allPlayer[j].money = temp.money;
+                allPlayer[j].exp = temp.exp;
+                allPlayer[j].level = temp.level;
+                allPlayer[j].hp = temp.hp;
+                allPlayer[j].energy = temp.energy;
+                allPlayer[j].armor = temp.armor;
+                allPlayer[j].damage = temp.damage;
+
+            }
+        }
+    }
 }
 
 void newGame(){
@@ -138,7 +172,7 @@ void newGame(){
         system("cls");
         gotoxy(5,2);
         printf("Select Your New Name: ");
-        scanf("%s", currentPlayer.name);
+        scanf("%[^\n]", currentPlayer.name);
         getchar(); 
         getch();
         
@@ -182,6 +216,8 @@ void loadGame(){
     char cursorLoc[playerIndex][3];
     gotoxy(5,2);
     printf("Save Data : \n");
+
+
     for (int i=0; i<=playerIndex; i++){
         gotoxy(5, 3+i);
         if (i == playerIndex){
@@ -231,7 +267,7 @@ void loadGame(){
                 currentPlayer.hp = allPlayer[posX].hp;
                 currentPlayer.energy = allPlayer[posX].energy;
                 currentPlayer.armor = allPlayer[posX].armor;
-                currentPlayer.damage == allPlayer[posX].damage;
+                currentPlayer.damage = allPlayer[posX].damage;
 
                 gameLobby();
                 return; 
@@ -698,17 +734,21 @@ void itemShop(){
 
     char cursorLoc[6][3];
     cursorLoc[0][1] = '<'; 
+    cursorLoc[1][1] = ' ';
+    cursorLoc[2][1] = ' ';
+    cursorLoc[3][1] = ' ';
+    cursorLoc[4][1] = ' ';
+    cursorLoc[5][1] = ' ';
     int bought; 
+    int posX = 0; 
 
     while(TRUE){
         for (int i=0; i<=6; i++){
             gotoxy(35, 3+i); 
-            printf("%c", cursorLoc[i]); 
+            printf("%c", cursorLoc[i][1]); 
         }
 
         char cursor = getch();
-        int posX = 0; 
-
         switch (cursor){
             case 'w':
             case 'W': 
@@ -722,58 +762,58 @@ void itemShop(){
             case 'S':
                 cursorLoc[posX][1] = ' ';
                 posX++; 
-                if (posX > 6) posX = 6; 
+                if (posX > 5) posX = 5; 
                 cursorLoc[posX][1] = '<';
                 break;
 
             case '\r': 
-                switch (cursor){
-                    case 1: 
+                switch (posX){
+                    case 0: 
                         gotoxy(5,10); 
                         printf("How many Potion do you want to buy ?");
                         gotoxy(5,11); 
                         printf("-"); 
                         gotoxy(8,11); 
-                        bought = getch();
+                        bought = getche();
                         break;
 
-                    case 2: 
+                    case 1: 
                         gotoxy(5,10); 
                         printf("How many Max Potion do you want to buy ?");
                         gotoxy(5,11); 
                         printf("-"); 
                         gotoxy(8,11); 
-                        bought = getch();
+                        bought = getche();
                         break;
 
-                    case 3: 
+                    case 2: 
                         gotoxy(5,10); 
                         printf("How many Energy Drink do you want to buy ?");
                         gotoxy(5,11); 
                         printf("-"); 
                         gotoxy(8,11); 
-                        bought = getch();
+                        bought = getche();
                         break;
 
-                    case 4: 
+                    case 3: 
                         gotoxy(5,10); 
                         printf("How many Max Energy Drink do you want to buy ?");
                         gotoxy(5,11); 
                         printf("-"); 
                         gotoxy(8,11); 
-                        bought = getch();
+                        bought = getche();
                         break;
 
-                    case 5: 
+                    case 4: 
                         gotoxy(5,10); 
                         printf("How many Bomb do you want to buy ?");
                         gotoxy(5,11); 
                         printf("-"); 
                         gotoxy(8,11); 
-                        bought = getch();
+                        bought = getche();
                         break;
                     
-                    case 6: 
+                    case 5: 
                         gotoxy(5,10); 
                         printf("See you again! [press enter]");
                         getch();
@@ -799,17 +839,18 @@ void upgradeShop(){
     char cursorLoc[4][3];
     cursorLoc[0][1] = '<'; 
     int bought; 
+    int posX = 0; 
 
     while(TRUE){
         for (int i=0; i<=4; i++){
+            cursorLoc[i][1] = ' '; 
             gotoxy(35, 3+i); 
-            printf("%c", cursorLoc[i]); 
+            printf("%c", cursorLoc[i][1]); 
         }
 
         char cursor = getch();
-        int posX = 0; 
 
-        switch (cursor){
+        switch (posX){
             case 'w':
             case 'W': 
                 cursorLoc[posX][1] = ' ';
@@ -822,37 +863,37 @@ void upgradeShop(){
             case 'S':
                 cursorLoc[posX][1] = ' ';
                 posX++; 
-                if (posX > 4) posX = 4; 
+                if (posX > 3) posX = 3; 
                 cursorLoc[posX][1] = '<';
                 break;
 
             case '\r': 
-                switch (cursor){
-                    case 1: 
+                switch (posX){
+                    case 0: 
                         gotoxy(5,10); 
                         printf("How many Potion do you want to buy ?");
                         gotoxy(5,11); 
                         printf("-"); 
                         gotoxy(8,11); 
-                        bought = getch();
+                        bought = getche();
 
-                    case 2: 
+                    case 1: 
                         gotoxy(5,10); 
                         printf("How many Max Potion do you want to buy ?");
                         gotoxy(5,11); 
                         printf("-"); 
                         gotoxy(8,11); 
-                        bought = getch();
+                        bought = getche();
 
-                    case 3: 
+                    case 2: 
                         gotoxy(5,10); 
                         printf("How many Energy Drink do you want to buy ?");
                         gotoxy(5,11); 
                         printf("-"); 
                         gotoxy(8,11); 
-                        bought = getch();
+                        bought = getche();
 
-                    case 4: 
+                    case 3: 
                         gotoxy(5,10); 
                         printf("Good bye! Dont forget to came again [press enter]");
                         getch();
