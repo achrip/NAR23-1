@@ -22,8 +22,6 @@ void itemShop();
 void upgradeShop(); 
 
 
-
-
 char menu[5][20]={
     {"NEW GAME           <"},
     {"LOAD GAME           "}, 
@@ -411,18 +409,18 @@ void gameLobby(){
                      action = getch();
 
                     if (action == ' '){
-                        char itemShop[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
+                        char shopText[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
 
                         for (int i=0; i<2; i++){
                             gotoxy(45, 12+i);
-                            for (int j=0; j<strlen(itemShop[i]); j++){
-                                printf("%c", itemShop[i][j]);
+                            for (int j=0; j<strlen(shopText[i]); j++){
+                                printf("%c", shopText[i][j]);
                                 Sleep(1.2);
                             }   
                         }
                         action = getch(); 
 
-                        if (action == 'y'); //goto shop
+                        if (action == 'y') itemShop();
                         if (action == 'n') break;
                     }             
 
@@ -434,18 +432,18 @@ void gameLobby(){
                      action = getch();
 
                     if (action == ' '){
-                        char upgradeShop[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
+                        char shopText[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
 
                         for (int i=0; i<2; i++){
                             gotoxy(45, 12+i);
-                            for (int j=0; j<strlen(upgradeShop[i]); j++){
-                                printf("%c", upgradeShop[i][j]);
+                            for (int j=0; j<strlen(shopText[i]); j++){
+                                printf("%c", shopText[i][j]);
                                 Sleep(1.2);
                             }   
                         }
                         action = getch(); 
 
-                        if (action == 'y'); //goto shop
+                        if (action == 'y') upgradeShop();
                         if (action == 'n') break;
                     }             
 
@@ -473,18 +471,18 @@ void gameLobby(){
                      action = getch();
 
                     if (action == ' '){
-                        char itemShop[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
+                        char shopText[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
 
                         for (int i=0; i<2; i++){
                             gotoxy(45, 12+i);
-                            for (int j=0; j<strlen(itemShop[i]); j++){
-                                printf("%c", itemShop[i][j]);
+                            for (int j=0; j<strlen(shopText[i]); j++){
+                                printf("%c", shopText[i][j]);
                                 Sleep(1.2);
                             }   
                         }
                         action = getch(); 
 
-                        if (action == 'y'); //goto shop
+                        if (action == 'y') itemShop();
                         if (action == 'n') break;
                     }             
 
@@ -496,18 +494,18 @@ void gameLobby(){
                      action = getch();
 
                     if (action == ' '){
-                        char upgradeShop[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
+                        char shopText[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
 
                         for (int i=0; i<2; i++){
                             gotoxy(45, 12+i);
-                            for (int j=0; j<strlen(upgradeShop[i]); j++){
-                                printf("%c", upgradeShop[i][j]);
+                            for (int j=0; j<strlen(shopText[i]); j++){
+                                printf("%c", shopText[i][j]);
                                 Sleep(1.2);
                             }   
                         }
                         action = getch(); 
 
-                        if (action == 'y'); //goto shop
+                        if (action == 'y') upgradeShop();
                         if (action == 'n') break;
                     }             
 
@@ -535,18 +533,18 @@ void gameLobby(){
                      action = getch();
 
                     if (action == ' '){
-                        char itemShop[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
+                        char shopText[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
 
                         for (int i=0; i<2; i++){
                             gotoxy(45, 12+i);
-                            for (int j=0; j<strlen(itemShop[i]); j++){
-                                printf("%c", itemShop[i][j]);
+                            for (int j=0; j<strlen(shopText[i]); j++){
+                                printf("%c", shopText[i][j]);
                                 Sleep(1.2);
                             }   
                         }
                         action = getch(); 
 
-                        if (action == 'y'); //goto shop
+                        if (action == 'y') itemShop();
                         if (action == 'n') break;
                     }             
 
@@ -558,18 +556,18 @@ void gameLobby(){
                      action = getch();
 
                     if (action == ' '){
-                        char upgradeShop[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
+                        char shopText[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
 
                         for (int i=0; i<2; i++){
                             gotoxy(45, 12+i);
-                            for (int j=0; j<strlen(upgradeShop[i]); j++){
-                                printf("%c", upgradeShop[i][j]);
+                            for (int j=0; j<strlen(shopText[i]); j++){
+                                printf("%c", shopText[i][j]);
                                 Sleep(1.2);
                             }   
                         }
                         action = getch(); 
 
-                        if (action == 'y'); //goto shop
+                        if (action == 'y') upgradeShop();
                         if (action == 'n') break;
                     }             
 
@@ -603,18 +601,18 @@ void gameLobby(){
                      action = getch();
 
                     if (action == ' '){
-                        char itemShop[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
+                        char shopText[2][50]={"Welcome to item shop!","Do you want to buy any item ? [y/n]"};
 
                         for (int i=0; i<2; i++){
                             gotoxy(45, 12+i);
-                            for (int j=0; j<strlen(itemShop[i]); j++){
-                                printf("%c", itemShop[i][j]);
+                            for (int j=0; j<strlen(shopText[i]); j++){
+                                printf("%c", shopText[i][j]);
                                 Sleep(1.2);
                             }   
                         }
                         action = getch(); 
 
-                        if (action == 'y'); //goto shop
+                        if (action == 'y') itemShop();
                         if (action == 'n') break;
                     }             
 
@@ -639,18 +637,18 @@ void gameLobby(){
                      action = getch();
 
                     if (action == ' '){
-                        char upgradeShop[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
+                        char shopText[2][50]={"Hohoo! This is an upgrade shop","Any thing i can do for you ? [y/n]"};
 
                         for (int i=0; i<2; i++){
                             gotoxy(45, 12+i);
-                            for (int j=0; j<strlen(upgradeShop[i]); j++){
-                                printf("%c", upgradeShop[i][j]);
+                            for (int j=0; j<strlen(shopText[i]); j++){
+                                printf("%c", shopText[i][j]);
                                 Sleep(1.2);
                             }   
                         }
                         action = getch(); 
 
-                        if (action == 'y'); //goto shop
+                        if (action == 'y') upgradeShop();
                         if (action == 'n') break;
                     }             
 
@@ -680,3 +678,193 @@ void gameLobby(){
 void gamePlay(){
     getch();
 }
+
+void itemShop(){
+    system("cls"); 
+    gotoxy(5,2); 
+    printf("Welcome to the item shop"); 
+    gotoxy(5,3); 
+    printf("1. Potion [$5]"); 
+    gotoxy(5,4); 
+    printf("2. Max Potion [$20]"); 
+    gotoxy(5,5); 
+    printf("3. Energy Drink [$3]"); 
+    gotoxy(5,6); 
+    printf("4. Max Energy Drink [$15]"); 
+    gotoxy(5,7); 
+    printf("5. Bomb [$10]"); 
+    gotoxy(5,8); 
+    printf("6. Back"); 
+
+    char cursorLoc[6][3];
+    cursorLoc[0][1] = '<'; 
+    int bought; 
+
+    while(TRUE){
+        for (int i=0; i<=6; i++){
+            gotoxy(35, 3+i); 
+            printf("%c", cursorLoc[i]); 
+        }
+
+        char cursor = getch();
+        int posX = 0; 
+
+        switch (cursor){
+            case 'w':
+            case 'W': 
+                cursorLoc[posX][1] = ' ';
+                posX--; 
+                if (posX < 0) posX = 0; 
+                cursorLoc[posX][1] = '<';
+                break;
+            
+            case 's':
+            case 'S':
+                cursorLoc[posX][1] = ' ';
+                posX++; 
+                if (posX > 6) posX = 6; 
+                cursorLoc[posX][1] = '<';
+                break;
+
+            case '\r': 
+                switch (cursor){
+                    case 1: 
+                        gotoxy(5,10); 
+                        printf("How many Potion do you want to buy ?");
+                        gotoxy(5,11); 
+                        printf("-"); 
+                        gotoxy(8,11); 
+                        bought = getch();
+                        break;
+
+                    case 2: 
+                        gotoxy(5,10); 
+                        printf("How many Max Potion do you want to buy ?");
+                        gotoxy(5,11); 
+                        printf("-"); 
+                        gotoxy(8,11); 
+                        bought = getch();
+                        break;
+
+                    case 3: 
+                        gotoxy(5,10); 
+                        printf("How many Energy Drink do you want to buy ?");
+                        gotoxy(5,11); 
+                        printf("-"); 
+                        gotoxy(8,11); 
+                        bought = getch();
+                        break;
+
+                    case 4: 
+                        gotoxy(5,10); 
+                        printf("How many Max Energy Drink do you want to buy ?");
+                        gotoxy(5,11); 
+                        printf("-"); 
+                        gotoxy(8,11); 
+                        bought = getch();
+                        break;
+
+                    case 5: 
+                        gotoxy(5,10); 
+                        printf("How many Bomb do you want to buy ?");
+                        gotoxy(5,11); 
+                        printf("-"); 
+                        gotoxy(8,11); 
+                        bought = getch();
+                        break;
+                    
+                    case 6: 
+                        gotoxy(5,10); 
+                        printf("See you again! [press enter]");
+                        getch();
+                        return; 
+                }
+        }
+    }
+}
+
+void upgradeShop(){
+    system("cls"); 
+    gotoxy(5,2); 
+    printf("Do you need anything to upgrade ?"); 
+    gotoxy(5,3); 
+    printf("1. HP 300/300 - $50"); 
+    gotoxy(5,4); 
+    printf("2. Energy 500/500 - $50"); 
+    gotoxy(5,5); 
+    printf("3. Armor 30/30 - $30"); 
+    gotoxy(5,6); 
+    printf("4. Back"); 
+
+    char cursorLoc[4][3];
+    cursorLoc[0][1] = '<'; 
+    int bought; 
+
+    while(TRUE){
+        for (int i=0; i<=4; i++){
+            gotoxy(35, 3+i); 
+            printf("%c", cursorLoc[i]); 
+        }
+
+        char cursor = getch();
+        int posX = 0; 
+
+        switch (cursor){
+            case 'w':
+            case 'W': 
+                cursorLoc[posX][1] = ' ';
+                posX--; 
+                if (posX < 0) posX = 0; 
+                cursorLoc[posX][1] = '<';
+                break;
+            
+            case 's':
+            case 'S':
+                cursorLoc[posX][1] = ' ';
+                posX++; 
+                if (posX > 4) posX = 4; 
+                cursorLoc[posX][1] = '<';
+                break;
+
+            case '\r': 
+                switch (cursor){
+                    case 1: 
+                        gotoxy(5,10); 
+                        printf("How many Potion do you want to buy ?");
+                        gotoxy(5,11); 
+                        printf("-"); 
+                        gotoxy(8,11); 
+                        bought = getch();
+
+                    case 2: 
+                        gotoxy(5,10); 
+                        printf("How many Max Potion do you want to buy ?");
+                        gotoxy(5,11); 
+                        printf("-"); 
+                        gotoxy(8,11); 
+                        bought = getch();
+
+                    case 3: 
+                        gotoxy(5,10); 
+                        printf("How many Energy Drink do you want to buy ?");
+                        gotoxy(5,11); 
+                        printf("-"); 
+                        gotoxy(8,11); 
+                        bought = getch();
+
+                    case 4: 
+                        gotoxy(5,10); 
+                        printf("Good bye! Dont forget to came again [press enter]");
+                        getch();
+                        return; 
+
+                    
+                }
+        }
+    }
+}
+        
+        
+        
+        
+        
