@@ -136,6 +136,7 @@ void newGame(){
         printf("Select Your New Name: ");
         scanf("%s", currentPlayer.name);
         getchar(); 
+        getch();
         
         if (strlen(currentPlayer.name)<3){
             gotoxy(5,4);
@@ -152,7 +153,22 @@ void newGame(){
             return; 
         }
     }
+    
+    FILE *data = fopen ("./database/player.dat", "a"); 
 
+        currentPlayer.money = 0; 
+        currentPlayer.exp = 0;
+        currentPlayer.level = 0;
+        currentPlayer.hp = 100; 
+        currentPlayer.energy = 50; 
+        currentPlayer.armor = 1; 
+        currentPlayer.damage = 1;
+
+    fprintf(data, "%[^\n]#%d#%d#%d#%d#%d#%d#%d\n", currentPlayer.name, 
+    currentPlayer.money, currentPlayer.exp, currentPlayer.level, currentPlayer.hp, 
+    currentPlayer.energy, currentPlayer.armor, currentPlayer.damage);
+
+    fclose(data);
     gameLobby();
 }
 
