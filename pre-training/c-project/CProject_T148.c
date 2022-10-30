@@ -20,6 +20,7 @@ void gameLobby();
 void gamePlay();
 void itemShop(); 
 void upgradeShop(); 
+void leaderboard();
 
 
 char menu[5][20]={
@@ -238,6 +239,7 @@ void loadGame(){
             printf("%c", cursorLoc[i][1]);
         }
 
+        gotoxy(0,0); 
         cursor = getch();
         switch (cursor){
         case 'w':
@@ -275,8 +277,6 @@ void loadGame(){
             break; 
         }
     }
-    gotoxy(0,0);
-    getch();
 }
 
 void settings(){
@@ -424,6 +424,7 @@ void gameLobby(){
         gotoxy(45,5);
         printf("Money : %d", currentPlayer.money);
 
+        gotoxy(0,22);
         char mv = getch(); 
 
         switch(mv){
@@ -432,12 +433,23 @@ void gameLobby(){
                 tmp = posY;
                 posY--;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
-                s[posX][posY]=='-' || s[posX][posY]=='|' ||
-                s[posX][posY]=='\\' || s[posX][posY]=='.' || s[posX][posY]=='_'){
+                s[posX][posY]=='-' || s[posX][posY]=='\\' || 
+                s[posX][posY]=='.' || s[posX][posY]=='_'){
                     posY++; 
                     s[posX][posY] = 'P';
                     break;
-                } else if (s[posX][posY]=='I'){
+                } else if (s[posX][posY]=='|'){
+                    posY++;  
+                    s[posX][posY] = 'P';
+                    gotoxy(45,15);
+                    printf("Press SPACE to interact");
+                     action = getch();
+
+                    if (action == ' '){
+                        leaderboard(); 
+                    }
+                    break;
+                }else if (s[posX][posY]=='I'){
                     posY++;  
                     s[posX][posY] = 'P';
                     gotoxy(45,15);
@@ -499,7 +511,7 @@ void gameLobby(){
                     posY--; 
                     s[posX][posY] = 'P';
                     break;
-                } else if (s[posX][posY]=='I'){
+                }else if (s[posX][posY]=='I'){
                     posY--; 
                     s[posX][posY] = 'P';
                     gotoxy(45,15);
@@ -905,7 +917,52 @@ void upgradeShop(){
     }
 }
         
-        
+void leaderboard(){
+
+    char uname[100][100], temp[100]; 
+    int hiscore[100], n=0; 
+
+    FILE *score = fopen("./database/score.dat", "r"); 
+
+    while(!feof(score)){
+        fscanf(score, "%[^#]#%d\n", uname[n], &hiscore[n]); 
+        n++;
+    }
+
+    fclose(score); 
+
+    for (int i=0; i<playerIndex; i++){
+        for (int j=0; j<playerIndex-1-i; j++){
+            if (hiscore[j] < hiscore[j+1]){
+                strcpy(temp, uname[j]); 
+                int tempScore = hiscore[j+1]; 
+                
+                strcpy(uname[j+1], uname[j]); 
+                hiscore[j+1] = hiscore[j]; 
+
+                strcpy(uname[j], temp); 
+                hiscore[j] = tempScore; 
+            }
+        }
+    }
+
+    system("cls"); 
+
+    gotoxy(5,2); 
+    printf("C Space Invader Scoreboard");
+    gotoxy(5,3); 
+    printf("====================================="); 
+
+    for (int i=0; i<n; i++){
+        gotoxy(5, 5+i); 
+        printf("%d. %s | %d", i+1, uname[i], hiscore[i]); 
+    }
+
+    gotoxy(5, n+7); 
+    printf("Back to menu? [press enter]"); 
+    getch();
+    return; 
+}        
         
         
         
