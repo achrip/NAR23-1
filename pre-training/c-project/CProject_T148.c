@@ -412,6 +412,9 @@ void gameLobby(){
                 s[6][7] = '-';
                 s[6][8] = '-';
                 s[6][9] = '-';
+            } else {
+                s[7][5] = '/'; 
+                s[7][10] = '\\';
             }
         }
 
@@ -424,7 +427,7 @@ void gameLobby(){
         gotoxy(45,5);
         printf("Money : %d", currentPlayer.money);
 
-        gotoxy(0,22);
+        gotoxy(5,23);
         char mv = getch(); 
 
         switch(mv){
