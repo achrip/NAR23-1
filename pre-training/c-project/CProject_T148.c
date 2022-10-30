@@ -762,7 +762,7 @@ void itemShop(){
             gotoxy(35, 3+i); 
             printf("%c", cursorLoc[i][1]); 
         }
-
+        gotoxy(0,0);
         char cursor = getch();
         switch (cursor){
             case 'w':
@@ -853,19 +853,21 @@ void upgradeShop(){
 
     char cursorLoc[4][3];
     cursorLoc[0][1] = '<'; 
+    cursorLoc[1][1] = ' ';
+    cursorLoc[2][1] = ' ';
+    cursorLoc[3][1] = ' ';
     int bought; 
     int posX = 0; 
 
     while(TRUE){
         for (int i=0; i<=4; i++){
-            cursorLoc[i][1] = ' '; 
             gotoxy(35, 3+i); 
             printf("%c", cursorLoc[i][1]); 
         }
-
+        gotoxy(0,0);
         char cursor = getch();
 
-        switch (posX){
+        switch (cursor){
             case 'w':
             case 'W': 
                 cursorLoc[posX][1] = ' ';
@@ -968,4 +970,6 @@ void leaderboard(){
 }        
         
         
-        
+struct spaceship{
+    
+};     
