@@ -76,6 +76,7 @@ int menuSelect(int i){
 
     switch (choose){
     case 'w':
+    case 'W':
         menu[i][19] = ' ';
         i--;
         if (i<0) i=0; 
@@ -83,6 +84,7 @@ int menuSelect(int i){
         break;
 
     case 's':
+    case 'S':
         menu[i][19] = ' '; 
         i++;
         if (i>4) i=4; 
@@ -200,6 +202,7 @@ void loadGame(){
         cursor = getch();
         switch (cursor){
         case 'w':
+        case 'W':
             cursorLoc[posX][1] = ' ';
             posX--; 
             if (posX < 0) posX = 0; 
@@ -207,6 +210,7 @@ void loadGame(){
             break;
         
         case 's':
+        case 'S':
             cursorLoc[posX][1] = ' ';
             posX++; 
             if (posX > playerIndex) posX = playerIndex; 
@@ -374,6 +378,7 @@ void gameLobby(){
 
         switch(mv){
             case 'a':
+            case 'A':
                 tmp = posY;
                 posY--;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
@@ -435,6 +440,7 @@ void gameLobby(){
                 break;
 
             case 'd':
+            case 'D':
                 tmp = posY;
                 posY++;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
@@ -496,6 +502,7 @@ void gameLobby(){
                 break;
 
             case 'w':
+            case 'W':
                 tmp = posX;
                 posX--;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
@@ -563,6 +570,7 @@ void gameLobby(){
                 break;
 
             case 's':
+            case 'S':
                 tmp = posX;
                 posX++;
                 if (s[posX][posY]=='/' || s[posX][posY]=='#' || 
