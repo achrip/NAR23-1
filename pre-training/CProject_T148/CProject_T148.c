@@ -42,6 +42,14 @@ struct player{
     int damage; 
 }allPlayer[100], currentPlayer, temp;
 
+struct ship{
+    /*
+    here i should import the space ship as a coordinate
+    so all i need to do when moving it is just adding 
+    and subtracting the said coordinate
+    */
+}myShip; 
+
 int playerIndex;
 
 int main(){
@@ -426,6 +434,8 @@ void gameLobby(){
         printf("Level : %d", currentPlayer.level);
         gotoxy(45,5);
         printf("Money : %d", currentPlayer.money);
+
+        
 
         gotoxy(5,23);
         char mv = getch(); 
@@ -968,8 +978,3 @@ void leaderboard(){
     getch();
     return; 
 }        
-        
-        
-struct spaceship{
-    
-};     
