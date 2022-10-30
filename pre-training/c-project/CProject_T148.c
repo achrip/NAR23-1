@@ -18,6 +18,9 @@ void manual();
 void logout();
 void gameLobby();
 void gamePlay();
+void itemShop(); 
+void upgradeShop(); 
+
 
 
 
@@ -56,6 +59,7 @@ int main(){
     return 0; 
     
 }
+void textcolor(int color); 
 
 void gotoxy(int x, int y){
     COORD c = { x, y };  
@@ -176,6 +180,7 @@ void newGame(){
 
 void loadGame(){
     // show player data by format num. [currentPlayer.name] [Level : n]
+    system("cls");
     char cursorLoc[playerIndex][3];
     gotoxy(5,2);
     printf("Save Data : \n");
@@ -220,16 +225,18 @@ void loadGame(){
         case '\r':
             if (posX == playerIndex) return; 
             else {
-                currentPlayer.name == allPlayer[posX].name;
-                currentPlayer.money == allPlayer[posX].money;
-                currentPlayer.exp == allPlayer[posX].exp;
-                currentPlayer.level == allPlayer[posX].level;
-                currentPlayer.hp == allPlayer[posX].hp;
-                currentPlayer.energy == allPlayer[posX].energy;
-                currentPlayer.armor == allPlayer[posX].armor;
+
+                strcpy(currentPlayer.name, allPlayer[posX].name);
+                currentPlayer.money = allPlayer[posX].money;
+                currentPlayer.exp = allPlayer[posX].exp;
+                currentPlayer.level = allPlayer[posX].level;
+                currentPlayer.hp = allPlayer[posX].hp;
+                currentPlayer.energy = allPlayer[posX].energy;
+                currentPlayer.armor = allPlayer[posX].armor;
                 currentPlayer.damage == allPlayer[posX].damage;
 
                 gameLobby();
+                return; 
             }
             break; 
         }
@@ -373,6 +380,15 @@ void gameLobby(){
                 s[6][9] = '-';
             }
         }
+
+        gotoxy(45,3);
+        printf("\033[0;33m");
+        printf("[%s]", currentPlayer.name);
+        printf("\033[0m"); 
+        gotoxy(45,4);
+        printf("Level : %d", currentPlayer.level);
+        gotoxy(45,5);
+        printf("Money : %d", currentPlayer.money);
 
         char mv = getch(); 
 
@@ -643,6 +659,19 @@ void gameLobby(){
                     s[tmp][posY] = ' ';
                 }
                 break;
+
+            case 'o':
+            case 'O': 
+                // open backpack 
+                system("cls"); 
+                gotoxy(5,3); 
+                printf("%s backpack's", currentPlayer.name); 
+                gotoxy(5,4); 
+                printf("===========================================");
+                gotoxy(5,7); 
+                printf("back to game [press enter]"); 
+                getch(); 
+
         }
 
     }
