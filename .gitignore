@@ -5,3 +5,6 @@
 #compressed files
 *.zip
 *.rar
+
+#java class files
+*.class
