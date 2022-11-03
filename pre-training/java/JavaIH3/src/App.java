@@ -28,7 +28,9 @@ public class App {
     }
 
     public App(){
-
+        while (true){
+            menu();
+        }
     }
 
     private void menu(){
@@ -153,6 +155,8 @@ public class App {
                 if (leash <3) leashUP();
                 else System.out.println("Your leash level is already maxed out..");
                 break;
+            case 3:
+                return;
             default:
                 break;
         }
@@ -204,4 +208,7 @@ public class App {
         }
     }
 
+    public static void main(String[] args) {
+        new App();
+    }
 }
