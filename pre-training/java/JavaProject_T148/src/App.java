@@ -7,26 +7,27 @@ import java.util.Scanner;
 
 public class App {
     static Scanner sc = new Scanner(System.in);
-    static ArrayList<String> uname = new ArrayList<>();
-    static ArrayList<String> pwd = new ArrayList<>();
-    static ArrayList<Integer> score = new ArrayList<>();
-    static int choose;
+     ArrayList<String> uname = new ArrayList<>();
+     ArrayList<String> pwd = new ArrayList<>();
+     ArrayList<Integer> score = new ArrayList<>();
+     int choose;
 
     public App() {
         menu();
     }
 
     // create the main menu for the card game
-    static void menu() {
+     void menu() {
         do {
-            System.out.println("======================");
-            System.out.println("| \u2665   BlueJack   \u2660 |");
-            System.out.println("| \u2666   Card Game  \u2663 |");
-            System.out.println("======================");
-            System.out.println("| 1.  Login          |");
-            System.out.println("| 2.  Register       |");
-            System.out.println("| 3.  Exit           |");
-            System.out.println("======================");
+            System.out.println("""
+                    ======================
+                    | ♥   BlueJack   ♠ |
+                    | ♦   Card Game  ♣ |
+                    ======================
+                    | 1.  Login          |
+                    | 2.  Register       |
+                    | 3.  Exit           |
+                    ======================""");
 
             System.out.print("Choose [1 - 3] >> ");
             choose = sc.nextInt();
@@ -41,7 +42,7 @@ public class App {
         }
     }
 
-    static void login() {
+     void login() {
         // login menu will prompt uname and pass, then checking with database
         try {
             BufferedReader read = new BufferedReader(new FileReader("SuperS3cr3tFile.txt"));
@@ -71,7 +72,7 @@ public class App {
 
     }
 
-    static void register() {
+     void register() {
         while (true){
             System.out.print("Input username : ");
             String tempUname = sc.nextLine();
@@ -109,6 +110,7 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
+        new App();
 //        // System.out.println("\u2666"); // diamond suit
 //        // System.out.println("\u2660" ); // spade suit
 //        // System.out.println("\u2663" ); // club suit
