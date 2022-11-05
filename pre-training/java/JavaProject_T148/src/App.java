@@ -18,7 +18,10 @@ public class App {
      ArrayList<String> uname = new ArrayList<>();
      ArrayList<String> pwd = new ArrayList<>();
      ArrayList<Integer> score = new ArrayList<>();
-     int choose;
+     ArrayList<String> trunk = new ArrayList<>();
+     char[] cardSuits = {'♥', '♦', '♠', '♣'};
+     int choose, tempScore;
+     String tempUser;
 
     public App() {
         menu();
@@ -79,6 +82,8 @@ public class App {
 
         for (int i = 0; i < uname.size(); i++) {
             if (logUname.contains(uname.get(i)) && logPwd.contains(pwd.get(i))) {
+                tempUser = uname.get(i);
+                tempScore = score.get(i);
                 System.out.println("[*] Successfully logged in\n" +
                         "Press enter to continue... ");
                 sc.nextLine();
@@ -128,49 +133,49 @@ public class App {
         }
     }
 
-//    private void homeMenu(){
-//        int choose;
-//        do {
-//            System.out.printf("""
-//                =====================
-//                | Hello, %s         |
-//                | point : %d        |
-//                =====================
-//                | 1. Play           |
-//                | 2. Highscore      |
-//                | 3. Save & Logout  |
-//                =====================""", tempUser,tempScore);
-//            System.out.print("Choose [1 - 3] >> ");
-//            choose = sc.nextInt();
-//                sc.nextLine();
-//        } while (choose < 1 || choose > 3);
-//
-//        switch (choose){
-//            case 1 -> game();
-//            case 2 -> leaderboard();
-//            case 3 -> bye();
-//            default -> {}
-//        }
-//    }
-//
-//    private int betting() {
-//        int bet;
-//        while (true) {
-//            System.out.print("Input your bet [max 100]: ");
-//            bet = sc.nextInt();
-//            sc.nextLine();
-//            if (bet < 1 || bet > 100) {
-//                System.out.println("[!] Input must be between 1 and 100");
-//            } else break;
-//        }
-//        return bet;
-//    }
-//
-//    private void game(){
-//        int bet = betting();
-//
-//
-//    }
+    private void homeMenu(){
+        int choose;
+        do {
+            System.out.printf("""
+                =====================
+                | Hello, %-5s|
+                | point : %-9d|
+                =====================
+                | 1. Play           |
+                | 2. Highscore      |
+                | 3. Save & Logout  |
+                =====================""", tempUser,tempScore);
+            System.out.print("Choose [1 - 3] >> ");
+            choose = sc.nextInt();
+                sc.nextLine();
+        } while (choose < 1 || choose > 3);
+
+        switch (choose){
+            case 1 -> game();
+            case 2 -> leaderboard();
+            case 3 -> bye();
+            default -> {}
+        }
+    }
+
+    private int betting() {
+        int bet;
+        while (true) {
+            System.out.print("Input your bet [max 100]: ");
+            bet = sc.nextInt();
+            sc.nextLine();
+            if (bet < 1 || bet > 100) {
+                System.out.println("[!] Input must be between 1 and 100");
+            } else break;
+        }
+        return bet;
+    }
+
+    private void game(){
+        int bet = betting();
+
+
+    }
 
 
     public static void main(String[] args) throws Exception {
