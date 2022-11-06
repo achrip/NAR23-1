@@ -177,7 +177,7 @@ public class App {
         } while (choose < 1 || choose > 3);
 
         switch (choose){
-            case 1 -> blackJack(user, score);
+            case 1 -> score = blackJack(user, score);
             case 2 -> leaderboard(user, score, pos);
             case 3 -> bye();  // clear arraylist every logout
             default -> {}
@@ -233,15 +233,10 @@ public class App {
 
         return tmp;
     }
-    private void blackJack(String user, int score){
+    private int blackJack(String user, int points){
         ArrayList<String> player = new ArrayList<>();
         ArrayList<String> dealer = new ArrayList<>();
-        int bet = betting();
-        int playersum = 0, dealersum = 0;
-        boolean status = true;
-        Deck deck = new Deck();
-
-        if (score == 0){
+        if (points == 0){
             System.out.println("""
                     =====================================
                     |           !!! ERROR !!!           |
@@ -254,11 +249,16 @@ public class App {
             sc.nextLine();
         }
         // start phase
+        Deck deck = new Deck();
         deck.shuffle();
         player.add(deck.draw());
         dealer.add(deck.draw());
         player.add(deck.draw());
         dealer.add(deck.draw());
+        int bet = betting();
+        int playersum = 0, dealersum = 0;
+        boolean status = true;
+
 
         // print menu hit/stand
         while (status){
@@ -377,19 +377,20 @@ public class App {
         if ((dealersum > 21) || (playersum > dealersum && playersum <= 21)){
             System.out.printf("[!] The dealer busted, you won %d point(s)\n", bet*2);
             System.out.print("Press enter to continue...");
-            score += bet*2;
+            points += bet*2;
             sc.nextLine();
         } else if ((playersum > 21) || (playersum < dealersum)){
             System.out.printf("[!] %s Busted, You lost %d points\n", user, bet); // lost = bet
             System.out.print("Press enter to continue...");
-            score -= bet;
+            points -= bet;
             sc.nextLine();
         }else {
             System.out.print("[!] It's a tie, you got nothing");
             System.out.print("Press enter to continue...");
             sc.nextLine();
+            return 0;
         }
-
+        return points;
     }
 
     private void bye(){
