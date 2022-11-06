@@ -77,12 +77,11 @@ public class App {
                         "Press enter to continue... ");
                 sc.nextLine();
                 homeMenu(tempUser, tempScore, pos);
-            } else {
-                System.out.println("Invalid username/password\n" +
-                        "Press enter to continue...");
-                sc.nextLine();
             }
         }
+        System.out.println("Invalid username/password\n" +
+                "Press enter to continue...");
+        sc.nextLine();
     }
     void register() {
         uname = new ArrayList<>();
@@ -144,7 +143,7 @@ public class App {
         } while ((ch != 0 || num != 0));
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("src/SuperS3cr3tFile.dat", false));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("src/SuperS3cr3tFile.dat", true));
             String tmp = crypt.encrypt(String.join("#", tempUname, tempPwd, "100"));
             writer.write(tmp);
             writer.write("\n");
@@ -332,6 +331,7 @@ public class App {
 
                     if (dealersum < 17){
                         dealer.add(deck.draw());
+                        status = false;
                     } else if (dealersum > 21){
                         status = false;
                         break;
@@ -433,12 +433,12 @@ public class App {
         String[] cR = new String[n];
         String[] cL = new String[n];
 
-        for (i = 0; i < r; i++){
+        for (i = 0; i < l; i++){
             sR[i] = score.get(mid + 1 + i);
             cR[i] = uname.get(mid + 1 + i);
         }
 
-        for (i = 0; i < l; i++){
+        for (i = 0; i < r; i++){
             sL[i] = score.get(from + i);
             cL[i] = uname.get(from + i);
         }
@@ -447,7 +447,7 @@ public class App {
         int currDex = from;
 
         while (dexLeft < l && dexRight < r){
-            if (sL[dexLeft].compareTo(sR[dexRight]) < 0){
+            if (sL[dexLeft].compareTo(sR[dexRight]) >= 0){
                 score.set(currDex, sL[dexLeft]);
                 uname.set(currDex, cL[dexLeft]);
                 dexLeft++;
