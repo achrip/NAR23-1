@@ -260,7 +260,7 @@ public class App {
 
 
         // print menu hit/stand
-        while (status){
+        while (status == true){
             System.out.println("Dealer Card:");
             // print dealer card
             for (int i = 0; i < dealer.size(); i++){
