@@ -1,0 +1,179 @@
+﻿#include <stdio.h>
+#include <windows.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+struct Aircraft{
+    char flightNo[50]; 
+    char model[100]; 
+    char manufacturer[50]; 
+    int capacity; 
+    struct Aircraft *next; 
+} *head = NULL, *tail = NULL; 
+
+struct Aircraft* newNode(char *no, char *model, char *manu, int cap){
+    struct Aircraft* node = (struct Aircraft*) malloc (sizeof(struct Aircraft));
+    node -> value = value
+}
+
+void pushHead(char *no, char *model, char *manu, int cap){
+    struct Aircraft* node = newNode(value);
+    if (head == NULL) {
+        head = tail = node; 
+    } else {
+        node -> next = head; 
+        head = node;
+    }
+}
+
+void printAll() {
+    struct Aircraft* current = head; 
+
+    while(curr != NULL) {
+        pritnf("%d", curr -> value);
+        curr = curr -> next; 
+    }
+
+    printf("\n");
+    
+}
+
+void manageAircraft();
+void manageSchedule(); 
+
+
+int main(){
+    int choose; 
+    printf("
+   |          \\ \\     / _)              |\n
+   |       _ \\ \\ \\   /   |   __|  _` |  __|   _ \\   __|\n
+   |       __/  \\ \\ /    |  |    (   |  |     __/ \\__ \\\n
+  _____| \\___|   \\_/    _| _|   \\__,_| \\__| \\___| ____/\n");
+
+    printf("Choose menu: \n\n"); 
+    printf("1. Manage Aircraft\n");
+    printf("2. Manage Schedule\n"); 
+    printf("3. Exit");
+    printf("input option >>");
+    scanf("%d", choose); 
+    getchar(); 
+
+    switch (choose)
+    {
+    case 1: 
+        manageAircraft(); 
+        break;
+
+    case 2: 
+        manageSchedule();   
+        break; 
+
+    case 3: 
+        exit(0); 
+    
+    default:
+        break;
+    }
+
+}
+
+void manageAircraft(){
+    int choose
+    printf("
+   |          \\ \\     / _)              |\n
+   |       _ \\ \\ \\   /   |   __|  _` |  __|   _ \\   __|\n
+   |       __/  \\ \\ /    |  |    (   |  |     __/ \\__ \\\n
+  _____| \\___|   \\_/    _| _|   \\__,_| \\__| \\___| ____/\n");
+
+    printf("Manage Aicraft menu: \n\n"); 
+    printf("1. View Aircrafts\n");
+    printf("2. Add Aircraft\n"); 
+    printf("3. Update Aircrafts\n"); 
+    printf("4. Delete Aircrafts\n");
+    printf("5. Exit\n"); 
+    printf("input option >>"); 
+    scanf("%d", &choose);
+    getchar(); 
+
+    switch (choose)
+    {
+    case 1: 
+        viewAircraft(); 
+        break;
+
+    case 2: 
+        addAircraft();   
+        break; 
+
+    case 3: 
+        updateAircraft();
+        break; 
+    
+    case 4: 
+        deleteAircraft(); 
+        break; 
+    
+    case 5: 
+        return; 
+    
+    default:
+        break;
+    }
+
+}
+
+void viewAircraft(){
+    if (head == NULL){
+        printf("No Data\n"); 
+        printf("Press enter to continue"); 
+        getchar(); 
+    }
+
+
+}
+
+void addAircraft(){
+    char subs[] = {"Airbus"};
+    char subs1[] = {"Boeing"};
+    char fNo[50]; 
+    char model[100]; 
+    char manu[50]; 
+    int cap, count, count1; 
+    bool check = TRUE; 
+
+    do {
+        printf("Input Flight Number [must be unique and only contains capital alphabet and number]: ");
+        scanf("%s", &fNo); 
+
+        count = 0; count1 = 0
+        for (int i = 0; i < strlen(fNo); i++){
+            if (isupper(fNo[i])) {
+                count++;
+            } else if (isdigit(fNo[i])){
+                count1++; 
+            }
+        }
+
+        if (count + count1 == strlen(fNo)) check = FALSE; 
+    } while (check);
+
+    check = TRUE;
+    do {
+        printf(" Input Aircraft Model [must starts with "Airbus" or "Boeing" and at least have two words]: ");
+        scanf("%s", &model); 
+
+        count = 0; count1 = 0
+        for (int i = 0; i < 6; i++){
+            if (model[i] == subs[i]){
+                count++; 
+            }
+        }
+        for (int i = 0; i < 6; i++) {
+            if (model[i] == subs1[i]) {
+                count1++; 
+            }
+        }
+        if (count == strlen(model) || count1 == strlen(model)) check = FALSE;
+    } while (check);
+}
