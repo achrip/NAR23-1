@@ -1,6 +1,8 @@
 #launcher files 
 *.exe
 *.exec
+*.jar
+
 
 #compressed files
 *.zip
@@ -8,3 +10,8 @@
 
 #java class files
 *.class
+
+#idea files
+*.iml
+*.xml
+/.idea
