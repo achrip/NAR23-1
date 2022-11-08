@@ -160,6 +160,7 @@ public class App {
     }
     private void homeMenu(String user, int score, int pos){
         int choose;
+        int points = 0;
         do {
             System.out.printf("""
                 =====================
@@ -169,18 +170,18 @@ public class App {
                 | 1. Play           |
                 | 2. Highscore      |
                 | 3. Save & Logout  |
-                =====================\n""", user,score);
+                =====================\n""", user,score - points);
             System.out.print("Choose [1 - 3] >> ");
             choose = sc.nextInt();
             sc.nextLine();
-        } while (choose < 1 || choose > 3);
 
-        switch (choose){
-            case 1 -> score = blackJack(user, score);
-            case 2 -> leaderboard(user, score, pos);
-            case 3 -> bye();  // clear arraylist every logout
-            default -> {}
-        }
+            switch (choose){
+                case 1 -> points = blackJack(user, score);
+                case 2 -> leaderboard(user, score, pos);
+                case 3 -> bye();  // clear arraylist every logout
+                default -> {}
+            }
+        } while (choose < 1 || choose > 3);
     }
 
     private int betting() {
