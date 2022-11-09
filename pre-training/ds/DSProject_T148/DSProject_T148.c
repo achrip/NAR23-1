@@ -6,6 +6,7 @@
 int choose;
 
 // TODO create a linked list for users, shows
+// TODO hash
 void login(); 
 void signUp(); 
 void seeYa(); 
