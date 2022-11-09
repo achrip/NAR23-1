@@ -3,22 +3,28 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <conio.h>
+#include <time.h>
 
 // generally used variables
 int choose;
 
 // TODO create a linked list for users, shows
 // TODO hash
+/*below are functions related to database*/
 void lookup(); 
 void typeto(char *name, char *password, char *money, char *favourites); 
+/*below are functions related to start menu*/
 void login(); 
 void signUp(); 
 void seeYa(); 
+/*below are functions related to home menu*/
+void home(); 
 
 int main() {
     // TODO clear linked list here (if any)
     // TODO populate user linked list / trie here
     // Landing Page
+    system("cls | @cls"); 
     puts("filMZ"); 
     puts("1. login");
     puts("2. register"); 
@@ -36,7 +42,7 @@ int main() {
         signUp(); 
         break; 
     case 3: 
-        // seeYa(); 
+        exit(0); 
         break; 
     default:
         break;
@@ -61,6 +67,11 @@ void typeto(char *name, char *password, char *money, char *favourites) {
     fclose(data); 
 }
 
+/*********************************************************************************
+
+                         THIS IS THE START PAGE AREA 
+
+**********************************************************************************/
 void login() {
     char user[255], password[255], c; 
     int index = 0; 
@@ -91,7 +102,8 @@ void login() {
         printf("press any key to continue..."); 
         getch(); 
 
-        home(); 
+        home();
+        return;  
     } else {
         puts("login failed"); 
         printf("press any key to continue..."); 
@@ -161,4 +173,53 @@ void signUp() {
     puts("Register Success"); 
     printf("press any key to continue...");
     getch();
+
+    return; 
+}
+
+
+/*********************************************************************************
+
+                         THIS IS THE HOME PAGE AREA 
+
+**********************************************************************************/
+
+void home() {
+    int choose; 
+    puts("filMZs"); 
+    puts("Hi, %s", /*current user's name*/); 
+    puts("Your money: %d", /*current user's money*/); 
+    puts("Last Checked Time: \n"); // date/time function?????
+
+    puts("Menus"); 
+    puts("1. Search film"); 
+    puts("2. Upload film"); 
+    puts("3. Return film"); 
+    puts("4. Favorited film"); 
+    puts("0. Logout"); 
+    
+    printf(">> "); 
+    scanf("%d", &choose); 
+    getchar(); 
+
+    switch (choose) {
+        case 0: 
+            return; 
+            break; 
+        case 1:    
+            find(); 
+            break; 
+        case 2: 
+            transmit(); 
+            break; 
+        case 3: 
+            retrieve(); 
+            break; 
+        case 4: 
+            faves(); 
+            break; 
+        default: 
+            break;            
+    }
+
 }
