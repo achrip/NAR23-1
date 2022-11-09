@@ -10,6 +10,7 @@ int choose;
 // TODO create a linked list for users, shows
 // TODO hash
 void lookup(); 
+void typeto(char *name, char *password, char *money, char *favourites); 
 void login(); 
 void signUp(); 
 void seeYa(); 
@@ -43,7 +44,21 @@ int main() {
 }
 
 void lookup() {
-    
+    FILE *users = fopen("./users/users.txt", "r"); 
+
+    while (!feof(users)) { 
+        fscanf(users, "");
+    }
+
+    fclose(users); 
+}
+
+void typeto(char *name, char *password, char *money, char *favourites) {
+    FILE *data = fopen("./users/users.txt", "a"); 
+
+    fscanf(data, "%s#%s#%s#%s\n", name, password, money, favourites); 
+
+    fclose(data); 
 }
 
 void login() {
@@ -139,6 +154,9 @@ void signUp() {
             check = true; 
         } 
     } while (!check);
+
+    //TODO concat info here 
+    typeto(user, password, 300, "-");
 
     puts("Register Success"); 
     printf("press any key to continue...");
