@@ -19,6 +19,10 @@ void signUp();
 void seeYa(); 
 /*below are functions related to home menu*/
 void home(); 
+void find(); 
+void transmit(); 
+void receive(); 
+void faves(); 
 
 int main() {
     // TODO clear linked list here (if any)
@@ -221,5 +225,9 @@ void home() {
         default: 
             break;            
     }
+
+}
+
+void find() {
 
 }

@@ -4,3 +4,5 @@ is a Tree that has a maximum of two branches/childs. The way that the data are h
 * If there is a preceding data available, there are two cases: 
 ** If inputted data > existing data in root/branch -> data will go into the right branch.
 ** If inputted data < existing data in root/branch -> data will go to into the left branch.
+
+There are 3 ways to print data from the BST; inOrder, preOrder, and postOrder 
