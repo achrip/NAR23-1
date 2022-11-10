@@ -8,8 +8,6 @@
 // generally used variables
 int choose;
 
-// TODO create a linked list for users, shows
-// TODO hash
 /*below are functions related to database*/
 void lookup(); 
 void typeto(char *name, char *password, char *money, char *favourites); 
@@ -53,22 +51,82 @@ int main() {
     } 
 }
 
-void lookup() {
-    FILE *users = fopen("./users/users.txt", "r"); 
+// TODO create a linked list for users, shows
+struct User {
+    char name[255]; 
+    char password[255];
+    int money; 
+    char favourites[255]; 
 
-    while (!feof(users)) { 
-        fscanf(users, "");
-    }
 
-    fclose(users); 
+} *root = NULL; 
+
+struct Movie {
+    char title[255]; 
+    char description[255]; 
+    int price; 
+    int duration; 
+    char genre[255]; 
+} *root = NULL; 
+
+struct Borrow {
+    char title[255]; 
+    char rentee[255]; 
+    int timeStamp; 
+    int rentDuration; 
+} *root = NULL; 
+
+struct Movie *newMovie(char *title, char *desc, int price, int dur, char *genre) {
+    struct Movie *init = (struct Movie *)malloc(sizeof(struct Movie)) ; 
+
+    strcpy(init->title, title); 
+    strcpy(init->description, desc); 
+    strcpy(init->genre, genre); 
+    init->price = price; 
+    init->duration = dur; 
+
+    return init; 
 }
 
-void typeto(char *name, char *password, char *money, char *favourites) {
-    FILE *data = fopen("./users/users.txt", "a"); 
+void lookup(char *filename, char rwxy) {
+        FILE *data = fopen(filename, rwxy); 
 
-    fscanf(data, "%s#%s#%s#%s\n", name, password, money, favourites); 
+    if (strcmp(filename, "users") == 0) {
+        char name[255], pwd[255], faves[255]; 
+        int money; 
+        while (!feof(data)) {
+            fscanf (data, "%[^#]#%[^#]#%d#%[^\n]\n", name, pwd, money, faves);
+        }
+    }
+    if (strcmp(filename, "films") == 0) {
+        char title[255], desc[255], genre[255]; 
+        int price, dur; 
+        while (!feof(data)) { 
+            fscanf(data, "%[^#]#%[^#]#%d#%d#%s\n", title, desc, price, dur, genre); 
 
-    fclose(data); 
+            newMovie(title, desc, price, dur, genre); 
+        }
+    }
+    if (strcmp(filename, "borrows") == 0) {
+        char title[255], rentee[255]; 
+        int dur, timestamp;
+        while (!feof(data)) {
+            fscanf(data, "%[^#]#%[^#]#%[^#]#%d\n", title, rentee, timestamp, dur);
+
+
+        }
+    }
+}
+
+unsigned int hash(char *str) {
+    unsigned int hash = 5381;
+    int c; 
+
+    while (c = *str++) {
+        hash = ((hash << 5) + hash) ^ c; 
+    }
+
+    return hash; 
 }
 
 /*********************************************************************************
@@ -140,7 +198,7 @@ void signUp() {
         } else {
             check = true; 
         }
-    } while (check == false);
+    } while (!check);
     
     do {
         printf(">> password >> "); 
@@ -189,11 +247,12 @@ void signUp() {
 **********************************************************************************/
 
 void home() {
+    time_t t = time(NULL); 
     int choose; 
     puts("filMZs"); 
     puts("Hi, %s", /*current user's name*/); 
     puts("Your money: %d", /*current user's money*/); 
-    puts("Last Checked Time: \n"); // date/time function?????
+    puts("Last Checked Time: %s\n", ctime(&t)); // date/time function?????
 
     puts("Menus"); 
     puts("1. Search film"); 
@@ -229,5 +288,13 @@ void home() {
 }
 
 void find() {
+    struct Movies *curr = root; 
+    int number = 1;
+    lookup("./films/films.txt", "r");   
+
+    puts(">> search >> ");
+    puts("Results:"); 
+
+    
 
 }
