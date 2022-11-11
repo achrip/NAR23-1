@@ -51,37 +51,160 @@ int main() {
     } 
 }
 
+/*********************************************************************************
+
+                         THIS IS THE TRIE AREA 
+
+**********************************************************************************/
+
+struct Trie {
+    int isLeaf; 
+    struct Trie *character[26];
+} *root = NULL;
+
+typedef struct Trie Trie; 
+
+Trie *createnode () {
+    Trie *init = (Trie *)malloc(sizeof(Trie)); 
+    init->isLeaf = 0; 
+    
+    for (int i = 0; i < 26; i++) {
+        init->character[i] = NULL;
+    }
+
+    return init; 
+}
+
+void insert (Trie *head, char *str) {
+    Trie *curr = head; 
+    while (*str) {
+        if (curr->character[*str - 'a'] == NULL) {
+            curr->character[*str - 'a'] = createnode(); 
+        }
+
+        curr = curr->character[*str - 'a']; 
+
+        str++; 
+    }
+
+    curr->isLeaf = 1; 
+}
+
+int search(Trie *head, char *str) {
+    if (head == NULL) {
+        return 0; 
+    }
+    
+    Trie *curr = head; 
+    while (*str) {
+        curr = curr->character[*str - 'a']; 
+
+        if (curr == NULL) {
+            return 0; 
+        } 
+
+        str++; 
+    }
+
+    return curr->isLeaf; 
+}
+
+int hasChildren(Trie *curr) {
+    for (int i = 0; i < 26; i++){
+        if (curr->character[i]) {
+            return 1; 
+        }
+    }
+
+    return 0; 
+}
+
+// Recursive function to delete a string from a Trie
+int deletion(struct Trie **curr, char* str)
+{
+    // return 0 if Trie is empty
+    if (*curr == NULL) {
+        return 0;
+    }
+ 
+    // if the end of the string is not reached
+    if (*str)
+    {
+        // recur for the node corresponding to the next character in
+        // the string and if it returns 1, delete the current node
+        // (if it is non-leaf)
+        if (*curr != NULL && (*curr)->character[*str - 'a'] != NULL &&
+            deletion(&((*curr)->character[*str - 'a']), str + 1) &&
+            (*curr)->isLeaf == 0)
+        {
+            if (!hasChildren(*curr))
+            {
+                free(*curr);
+                (*curr) = NULL;
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+    }
+ 
+    // if the end of the string is reached
+    if (*str == '\0' && (*curr)->isLeaf)
+    {
+        // if the current node is a leaf node and doesn't have any children
+        if (!hasChildren(*curr))
+        {
+            free(*curr);    // delete the current node
+            (*curr) = NULL;
+            return 1;       // delete the non-leaf parent nodes
+        }
+ 
+        // if the current node is a leaf node and has children
+        else {
+            // mark the current node as a non-leaf node (DON'T DELETE IT)
+            (*curr)->isLeaf = 0;
+            return 0;       // don't delete its parent nodes
+        }
+    }
+ 
+    return 0;
+}
+
+/*********************************************************************************
+
+                         THIS IS THE LINKED LIST AREA 
+
+**********************************************************************************/
+
 // TODO create a linked list for users, shows
 struct User {
-    char name[255]; 
-    char password[255];
+    char name[255], password[255], favourites[255]; 
     int money; 
-    char favourites[255]; 
 
 
 } *root = NULL; 
 
 struct Movie {
-    char title[255]; 
-    char description[255]; 
-    int price; 
-    int duration; 
-    char genre[255]; 
+    char title[255], description[255], genre[255], uploader[255]; 
+    int price, duration;  
+
 } *root = NULL; 
 
 struct Borrow {
-    char title[255]; 
-    char rentee[255]; 
+    char title[255], rentee[255]; 
     int timeStamp; 
     int rentDuration; 
 } *root = NULL; 
 
-struct Movie *newMovie(char *title, char *desc, int price, int dur, char *genre) {
+struct Movie *newMovie(char *title, char *desc, int price, 
+        int dur, char *genre, char *up) {
     struct Movie *init = (struct Movie *)malloc(sizeof(struct Movie)) ; 
 
     strcpy(init->title, title); 
     strcpy(init->description, desc); 
     strcpy(init->genre, genre); 
+    strcpy(init->uploader, up); 
     init->price = price; 
     init->duration = dur; 
 
