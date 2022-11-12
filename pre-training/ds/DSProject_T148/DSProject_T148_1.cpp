@@ -61,7 +61,8 @@ Film *newFilm() {
     return node; 
 }
 
-Film *trie_film(Film *root, char *title) {
+Film *trie_film(Film *root, char *title, char *description, char *uploader, 
+                    int price, int duration) {
     Film *current = root; 
     while (*title){ 
         if (!current->child[*title])
@@ -363,9 +364,9 @@ void home(char *name, int money) {
     while (true) {
         system("cls");
         puts("filMZs"); 
-        printf("Hi, %s\n", name); 
-        printf("Your money: %d\n", money); 
-        printf("Last Checked Time: %s\n", asctime(current_time)); // date/time function?????
+        printf("Hi %s\n", name); 
+        printf("Your money : %d\n", money); 
+        printf("Last Checked Time : %s\n", asctime(current_time)); // date/time function?????
 
         puts("Menus"); 
         puts("1. Search film"); 
@@ -390,6 +391,7 @@ void home(char *name, int money) {
             case 3: 
                 break; 
             case 4: 
+                favourites(); 
                 break; 
             default: 
                 break;            
@@ -399,5 +401,38 @@ void home(char *name, int money) {
 }
 
 void findMovie() {
-    
+    FILE *filmList = fopen("./films/films.txt", "r"); 
+    char title[255], desc[255], genre[255], up[255], c; 
+    int price, dur; 
+    fscanf(filmList, "\n");
+    while (!feof(filmList)) {
+        fscanf(filmList, "%[^#]#%[^#]#%d#%d#%[^#]#%[^\n]\n", title, desc, &price, &dur, genre, up);
+
+        trie_film(film_root, title, desc, up, price, dur); 
+        char *split = strtok(genre, ","); 
+        while (split) {
+            chain_genre(create_genre(title, split)); 
+            split = strtok(NULL, ","); 
+        }
+    }
+    fclose(filmList);
+
+    printf(">> search >> "); 
+    while ((c = getch()) != 13) {
+        putch(c); 
+        puts("\nResults:");
+        //TODO update view after every word
+    }
+}
+
+void favourites(char *user) {
+    puts(">> favourite film: "); 
+    if (!hash(user)) {
+        puts("you haven't added any favourite film yet..."); 
+        printf("press any key to continue..."); 
+        getch();
+        return; 
+    } else {
+        
+    }
 }
