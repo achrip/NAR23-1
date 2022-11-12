@@ -9,7 +9,7 @@
 int choose;
 
 /*below are functions related to database*/
-void lookup(); 
+void lookup(char *filename, char rwxy); 
 void typeto(char *name, char *password, char *money, char *favourites); 
 /*below are functions related to start menu*/
 void login(); 
@@ -57,120 +57,6 @@ int main() {
 
 **********************************************************************************/
 
-struct Trie {
-    int isLeaf; 
-    struct Trie *character[26];
-} *root = NULL;
-
-typedef struct Trie Trie; 
-
-Trie *createnode () {
-    Trie *init = (Trie *)malloc(sizeof(Trie)); 
-    init->isLeaf = 0; 
-    
-    for (int i = 0; i < 26; i++) {
-        init->character[i] = NULL;
-    }
-
-    return init; 
-}
-
-void insert (Trie *head, char *str) {
-    Trie *curr = head; 
-    while (*str) {
-        if (curr->character[*str - 'a'] == NULL) {
-            curr->character[*str - 'a'] = createnode(); 
-        }
-
-        curr = curr->character[*str - 'a']; 
-
-        str++; 
-    }
-
-    curr->isLeaf = 1; 
-}
-
-int search(Trie *head, char *str) {
-    if (head == NULL) {
-        return 0; 
-    }
-    
-    Trie *curr = head; 
-    while (*str) {
-        curr = curr->character[*str - 'a']; 
-
-        if (curr == NULL) {
-            return 0; 
-        } 
-
-        str++; 
-    }
-
-    return curr->isLeaf; 
-}
-
-int hasChildren(Trie *curr) {
-    for (int i = 0; i < 26; i++){
-        if (curr->character[i]) {
-            return 1; 
-        }
-    }
-
-    return 0; 
-}
-
-// Recursive function to delete a string from a Trie
-int deletion(struct Trie **curr, char* str)
-{
-    // return 0 if Trie is empty
-    if (*curr == NULL) {
-        return 0;
-    }
- 
-    // if the end of the string is not reached
-    if (*str)
-    {
-        // recur for the node corresponding to the next character in
-        // the string and if it returns 1, delete the current node
-        // (if it is non-leaf)
-        if (*curr != NULL && (*curr)->character[*str - 'a'] != NULL &&
-            deletion(&((*curr)->character[*str - 'a']), str + 1) &&
-            (*curr)->isLeaf == 0)
-        {
-            if (!hasChildren(*curr))
-            {
-                free(*curr);
-                (*curr) = NULL;
-                return 1;
-            }
-            else {
-                return 0;
-            }
-        }
-    }
- 
-    // if the end of the string is reached
-    if (*str == '\0' && (*curr)->isLeaf)
-    {
-        // if the current node is a leaf node and doesn't have any children
-        if (!hasChildren(*curr))
-        {
-            free(*curr);    // delete the current node
-            (*curr) = NULL;
-            return 1;       // delete the non-leaf parent nodes
-        }
- 
-        // if the current node is a leaf node and has children
-        else {
-            // mark the current node as a non-leaf node (DON'T DELETE IT)
-            (*curr)->isLeaf = 0;
-            return 0;       // don't delete its parent nodes
-        }
-    }
- 
-    return 0;
-}
-
 /*********************************************************************************
 
                          THIS IS THE LINKED LIST AREA 
@@ -178,38 +64,133 @@ int deletion(struct Trie **curr, char* str)
 **********************************************************************************/
 
 // TODO create a linked list for users, shows
+typedef User User; 
+typedef Movie Movie; 
+typedef Favourites Favourites; 
+struct Favourites{
+    char title [255]; 
+    Favourites *character[64]; 
+    Favourites *next; 
+} *head = NULL, *tail = NULL;
 struct User {
-    char name[255], password[255], favourites[255]; 
-    int money; 
-
-
-} *root = NULL; 
+    char c, password[255]; 
+    int money, isLeaf; 
+    Favourites *head;
+    User *child[64];
+}; 
 
 struct Movie {
     char title[255], description[255], genre[255], uploader[255]; 
-    int price, duration;  
+    int price, duration, isLeaf;  
 
-} *root = NULL; 
+    Movie *character[64]; 
+}; 
 
-struct Borrow {
-    char title[255], rentee[255]; 
-    int timeStamp; 
-    int rentDuration; 
-} *root = NULL; 
+User *newUser(char data) {
+    User *init = (User *)malloc(sizeof(User)); 
 
-struct Movie *newMovie(char *title, char *desc, int price, 
-        int dur, char *genre, char *up) {
-    struct Movie *init = (struct Movie *)malloc(sizeof(struct Movie)) ; 
+    for (int i = 0; i < 64; i++)  
+        init->name[i] = NULL; 
+
+    for (int i = 0; i < 64; i++) {
+        init->child[i] = NULL; 
+    }
+
+    init->isLeaf = 0; 
+    init->password = NULL; 
+    init->money = 0; 
+
+    return init; 
+}
+
+Favourites *newFave(char *title) {
+    Favourites *init = (Favourites *)malloc(sizeof(Favourites)); 
+
+    strcpy(init->title, title); 
+    init->next = NULL ; 
+
+    return init; 
+}
+
+Movie *newMov(char *title, char *desc, char *genre, char *uploader, int dur, int price) {
+    Movie *init = (Movie *)malloc(sizeof(Movie)); 
 
     strcpy(init->title, title); 
     strcpy(init->description, desc); 
     strcpy(init->genre, genre); 
-    strcpy(init->uploader, up); 
-    init->price = price; 
+    strcpy(init->uploader, uploader); 
     init->duration = dur; 
+    init->price = price; 
+    init->isLeaf = 0; 
 
     return init; 
 }
+
+User *getNewUserNode() {
+    User *node = (User *)malloc(sizeof(User)); 
+    node->isLeaf = 0; 
+
+    for (int i = 0; i < 64; i++) {
+        node->name[i] = NULL; 
+    }
+
+    return node; 
+}  
+
+User *insertMov(User *head, char *str) {
+    User *curr = head;
+    while (*str)
+    {
+        if (curr->name[*str - 'a'] == NULL) {
+            curr->name[*str - 'a'] = getNewUserNode();
+        }
+ 
+        curr = curr->name[*str - 'a'];
+ 
+        str++;
+    }
+ 
+    curr->isLeaf = 1;
+}
+
+Movie *getNewMovNode() {
+    Movie *node = (Movie *)malloc(sizeof(Movie)); 
+    node->isLeaf = 0; 
+
+    for (int i = 0; i < 64; i++) {
+        node->title[i] = NULL; 
+    }
+
+    return node; 
+}
+
+Movie *insertMov(Movie *head, char *str) {
+    Movie *curr = head;
+    while (*str)
+    {
+        if (curr->title[*str - 'a'] == NULL) {
+            curr->title[*str - 'a'] = getNewMovNode();
+        }
+ 
+        curr = curr->title[*str - 'a'];
+ 
+        str++;
+    }
+ 
+    curr->isLeaf = 1;
+}
+
+void pushHead (Favourites *root, char *str) {
+    Favourites *node = newFave(str); 
+
+    if (head == NULL) {
+        head = tail = node; 
+    } else {
+        node->next = head; 
+        head = node; 
+    }
+}
+
 
 void lookup(char *filename, char rwxy) {
         FILE *data = fopen(filename, rwxy); 
@@ -217,17 +198,23 @@ void lookup(char *filename, char rwxy) {
     if (strcmp(filename, "users") == 0) {
         char name[255], pwd[255], faves[255]; 
         int money; 
+        User *head = getNewUserNode(); 
         while (!feof(data)) {
             fscanf (data, "%[^#]#%[^#]#%d#%[^\n]\n", name, pwd, money, faves);
+
+            
+
         }
     }
     if (strcmp(filename, "films") == 0) {
-        char title[255], desc[255], genre[255]; 
+        char title[255], desc[255], genre[255], uploader[255]; 
         int price, dur; 
+        Movie *head = getNewMovNode(); 
         while (!feof(data)) { 
-            fscanf(data, "%[^#]#%[^#]#%d#%d#%s\n", title, desc, price, dur, genre); 
+            fscanf(data, "%[^#]#%[^#]#%d#%d#%s#[^\n]\n", title, desc, price, dur, genre, uploader); 
 
-            newMovie(title, desc, price, dur, genre); 
+            newMov(title, desc, genre, uploader, dur, price); 
+            insertMov(head, title); 
         }
     }
     if (strcmp(filename, "borrows") == 0) {
@@ -246,11 +233,13 @@ unsigned int hash(char *str) {
     int c; 
 
     while (c = *str++) {
-        hash = ((hash << 5) + hash) ^ c; 
+        hash = ((hash << 5) + hash) + c; /* hash = (hash * 33) + c*/
     }
 
-    return hash; 
+    return hash % 1; 
 }
+
+
 
 /*********************************************************************************
 
@@ -306,26 +295,44 @@ void signUp() {
     puts("Register"); 
     do {
         printf(">> name >> "); 
-        scanf("%[^\n]", &user);
-        getchar(); 
+        while ((c = getch()) != 13) {
+            if(index < 0)
+                index = 0;
+            if(c == 8){
+                putch('\b');
+                putch(NULL);
+                putch('\b');
+                index--;
+
+                continue;
+            }
+            if (c == 95 || c == 32){
+                goto here; 
+            }
+            if (isalnum(c) == 0){
+                continue; 
+            }
+            here :  user[index++] = c;
+                    putch(c);
+        }
+        user[index] = '\0'; 
 
         if (strlen(user) < 8) {
-            puts("name must be at least 8 characters"); 
+            puts("\nname must be at least 8 characters"); 
             continue; 
         } else if (strlen(user) > 30) {
-            puts("name must not be more than 30 characters"); 
-            continue; 
-        } else if (/* name exists */) {
-            puts("name already taken!"); 
+            puts("\nname must not be more than 30 characters"); 
             continue; 
         } else {
             check = true; 
         }
     } while (!check);
+    puts(" "); 
     
+    check = false; 
     do {
         printf(">> password >> "); 
-        while ((c = getch()) != "\n") {
+        while ((c = getch()) != 13) {
             if(index < 0)
                 index = 0;
             if(c == 8){
@@ -342,10 +349,10 @@ void signUp() {
         password[index] = '\0'; 
         
         if (strlen(password) < 8) {
-            puts("password must be at least 8 characters"); 
+            puts("\npassword must be at least 8 characters"); 
             continue; 
         } else if (strlen(password) > 30) {
-            puts("password must not be more than 30 characters"); 
+            puts("\npassword must not be more than 30 characters"); 
             continue; 
         } else {
             check = true; 
@@ -353,7 +360,7 @@ void signUp() {
     } while (!check);
 
     //TODO concat info here 
-    typeto(user, password, 300, "-");
+    // typeto(user, password, 300, "-");
 
     puts("Register Success"); 
     printf("press any key to continue...");
@@ -369,55 +376,56 @@ void signUp() {
 
 **********************************************************************************/
 
-void home() {
-    time_t t = time(NULL); 
-    int choose; 
-    puts("filMZs"); 
-    puts("Hi, %s", /*current user's name*/); 
-    puts("Your money: %d", /*current user's money*/); 
-    puts("Last Checked Time: %s\n", ctime(&t)); // date/time function?????
+// void home() {
+//     time_t t = time(NULL); 
+//     int choose; 
+//     puts("filMZs"); 
+//     puts("Hi, %s", /*current user's name*/); 
+//     puts("Your money: %d", /*current user's money*/); 
+//     puts("Last Checked Time: %s\n", ctime(&t)); // date/time function?????
 
-    puts("Menus"); 
-    puts("1. Search film"); 
-    puts("2. Upload film"); 
-    puts("3. Return film"); 
-    puts("4. Favorited film"); 
-    puts("0. Logout"); 
+//     puts("Menus"); 
+//     puts("1. Search film"); 
+//     puts("2. Upload film"); 
+//     puts("3. Return film"); 
+//     puts("4. Favorited film"); 
+//     puts("0. Logout"); 
     
-    printf(">> "); 
-    scanf("%d", &choose); 
-    getchar(); 
+//     printf(">> "); 
+//     scanf("%d", &choose); 
+//     getchar(); 
 
-    switch (choose) {
-        case 0: 
-            return; 
-            break; 
-        case 1:    
-            find(); 
-            break; 
-        case 2: 
-            transmit(); 
-            break; 
-        case 3: 
-            retrieve(); 
-            break; 
-        case 4: 
-            faves(); 
-            break; 
-        default: 
-            break;            
-    }
+//     switch (choose) {
+//         case 0: 
+//             return; 
+//             break; 
+//         case 1:    
+//             find(); 
+//             break; 
+//         case 2: 
+//             transmit(); 
+//             break; 
+//         case 3: 
+//             retrieve(); 
+//             break; 
+//         case 4: 
+//             faves(); 
+//             break; 
+//         default: 
+//             break;            
+//     }
 
-}
+// }
 
-void find() {
-    struct Movies *curr = root; 
-    int number = 1;
-    lookup("./films/films.txt", "r");   
+// void find() {
+//     Trie *head = createnode(); 
 
-    puts(">> search >> ");
-    puts("Results:"); 
+//     int number = 1;
+//     lookup("./films/films.txt", "r");   
+
+//     puts(">> search >> ");
+//     puts("Results:"); 
 
     
 
-}
+// }
