@@ -26,12 +26,12 @@ struct Film {
 
 struct Faves {
     char user[255], title[255]; 
-    Faves *next; 
+    Faves *next, *prev; 
 } *fave_table[hash_size]; 
 
 struct Genre {
     char title[255], category[255]; 
-    Genre *next; 
+    Genre *next, *prev; 
 } *genre_table[hash_size];
 
 User *newUser() {
@@ -78,6 +78,7 @@ Genre *create_genre(char *title, char *category) {
     strcpy(node->category, category);
     strcpy(node->title, title); 
     node->next = NULL; 
+    node->prev = NULL; 
 
     return node; 
 }
@@ -87,6 +88,7 @@ Faves *create_fave(char *user, char *title) {
     strcpy(node->user, user); 
     strcpy(node->title, title); 
     node->next = NULL; 
+    node->prev = NULL; 
 
     return node; 
 }
@@ -110,6 +112,7 @@ void chain_fave(Faves *inserted) {
             current = current->next;
         }
         current->next = inserted; 
+        current->next->prev = current;
     }
 }
 
@@ -123,12 +126,15 @@ void chain_genre(Genre *inserted) {
             current = current->next; 
         }
         current->next = inserted; 
+        current->next->prev = current;
     }
 }
 
 void login(); 
 void signup(); 
 void home(char *str, int i); 
+void findMovie(); 
+void favourites(char *str); 
 
 int main() { 
     user_root = newUser();
@@ -314,7 +320,8 @@ void signup() {
     } while (!check);
     puts(""); 
     
-    check = false; 
+    check = false;
+    index = 0; 
     do {
         printf(">> password >> "); 
         while ((c = getch()) != 13) {
@@ -345,10 +352,10 @@ void signup() {
     } while (!check);
 
     FILE *userData = fopen("./users/users.txt", "a"); 
-    fprintf(userData, "\n%s#%s#%d#%s", user, pwd, 300, "-"); 
+    fprintf(userData, "\n%s#%s#%d#%s", user, pwd, 300, '-'); 
     fclose(userData); 
 
-    puts("Register Success"); 
+    puts("\nRegister Success"); 
     printf("press any key to continue...");
     getch();    
 
@@ -387,11 +394,13 @@ void home(char *name, int money) {
                 findMovie();   
                 break; 
             case 2: 
+                upload(name); 
                 break; 
             case 3: 
                 break; 
             case 4: 
-                favourites(); 
+                favourites(name); 
+                putch('%');
                 break; 
             default: 
                 break;            
@@ -427,12 +436,107 @@ void findMovie() {
 
 void favourites(char *user) {
     puts(">> favourite film: "); 
-    if (!hash(user)) {
+    if (!fave_table[hash(user)]) { //this condition masih salah
         puts("you haven't added any favourite film yet..."); 
         printf("press any key to continue..."); 
         getch();
         return; 
     } else {
-        
+        Faves *current = fave_table[hash(user)];
+        int i = 1; 
+        while (current) {
+            printf("%d. %s\n", i, current->title); 
+            i++; 
+            current = current->next; 
+        }
+        i--;
+        puts("0. return"); 
+        printf(">> select a film >> ");
+        scanf("%d", &choose); 
+        getchar();
+        printf("mamaaaa");  
+        if (i == choose)
+            getch();
+        else {
+            for ( ; i >= choose; i--) // this looping masih salah 
+                current = current->prev;
+            printf("%s", current->title);
+            getch(); 
+        }
     }
+    return; 
+}
+
+void upload(char *uploader) {
+    char title[255], desc[255], genre[255], up[255], c;
+    int price, duration;
+    int index = 0;  
+    bool check = false; 
+    puts(">> Upload Film Menu"); 
+    do {
+        printf(">> name >> "); 
+        while ((c = getch()) != 13) {
+            if(index < 0)
+                index = 0;
+            if(c == 8){
+                putch('\b');
+                putch(' ');
+                putch('\b');
+                index--;
+
+                continue;
+            }
+            if (c == 95 || c == 32){// underscore dan spasi 
+                goto here; 
+            }
+            if (isalnum(c) == 0){
+                continue; 
+            }
+            here :  title[index++] = c;
+                    putch(c);
+        }
+        title[index] = '\0'; 
+
+        if (title[0] == 13)
+            puts("name must be filled!"); 
+        else check = true; 
+    } while (!check) ;
+
+    printf(">> description >> "); 
+    scanf("%[^\n]", desc); 
+    getchar();
+
+    check = false; 
+    do {
+        printf(">> borrow price (per minute) >> "); 
+        scanf("%d", &price);
+        getchar();
+        if (!(price > 0)) {
+            puts("out of range!"); 
+        }
+    } while (!check);
+
+    check = false; 
+    do {
+        printf(">> duration (in minute) >> "); 
+        scanf("%d", &duration);
+        getchar();
+        if (!(duration > 0)) {
+            puts("out of range!"); 
+        }
+    } while (!check);
+
+    puts(">> genres, separated by comma"); 
+    puts("available genres: romance, drama, action, mecha, horror, fantasy, comedy, adventure"); 
+    printf(">> ");
+
+    FILE *filmData = fopen("./film/films.txt", "a"); 
+    fprintf(filmData, "%s#%s#%d#%d#%s#%s\n", title, desc, price, duration, genre, uploader);
+    fclose(filmData);
+    
+    puts("Film Uploaded"); 
+    printf("press any key to continue..."); 
+    getch(); 
+
+    return; 
 }
