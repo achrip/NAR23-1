@@ -143,6 +143,7 @@ void upload(char *str);
 
 int main() { 
     user_root = newUser();
+    film_root = newFilm(); 
     while (true) {
         FILE *dataUser = fopen("./users/users.txt", "r"); 
         char name[255], pwd[255], fav[255]; 
@@ -454,12 +455,11 @@ void findMovie() {
     FILE *filmList = fopen("./films/films.txt", "r"); 
     char title[255], desc[255], genre[255], up[255], c; 
     int price, dur; 
-    // fscanf(filmList, "\n");
+    fscanf(filmList, "\n");
     while (!feof(filmList)) {
-        fscanf(filmList, "\n%[^#]#%[^#]#%d#%d#%[^#]#%[^\n]", title, desc, &price, &dur, genre, up);
+        fscanf(filmList, "%[^#]#%[^#]#%d#%d#%[^#]#%[^\n]\n", title, desc, &price, &dur, genre, up);
 
         trie_film(film_root, title, desc, up, price, dur); 
-        puts("HAIIII"); 
         char *split = strtok(genre, ","); 
         while (split) {
             chain_genre(create_genre(title, split)); 
@@ -468,20 +468,20 @@ void findMovie() {
     }
     fclose(filmList);
 
-    char wordBuffer[255];
+    char wordBuffer[255] = {'\0'};
     int index = 0;  
     do {
         system("cls");
         printf(">> search >> %s", wordBuffer); 
         puts("\nResults:");
-        if (!wordBuffer)
-            autocomplete(film_root, wordBuffer);
-        else {
+        // if (!wordBuffer)
+        //     autocomplete(film_root, wordBuffer);
+        // else {
             c = getch(); 
             wordBuffer[index] = c; 
             index++;
             autocomplete(film_root, wordBuffer);
-        }
+        // }
     } while (c != 13);
 
     system("cls"); 
@@ -490,6 +490,7 @@ void findMovie() {
 }
 
 void favourites(char *user) {
+    system("cls"); 
     puts(">> favourite film: "); 
     if (!fave_table[hash(user)]) { //this condition masih salah
         puts("you haven't added any favourite film yet..."); 
@@ -509,7 +510,6 @@ void favourites(char *user) {
         printf(">> select a film >> ");
         scanf("%d", &choose); 
         getchar();
-        printf("mamaaaa");  
         if (i == choose)
             getch();
         else {
@@ -527,6 +527,7 @@ void upload(char *uploader) {
     int price, duration;
     int index = 0;  
     bool check = false; 
+    system("cls");
     puts(">> Upload Film Menu"); 
     do {
         printf(">> name >> "); 
@@ -552,12 +553,12 @@ void upload(char *uploader) {
         }
         title[index] = '\0'; 
 
-        if (title[0] == 13)
-            puts("name must be filled!"); 
+        if (title[0] == 0)
+            puts("\nname must be filled!"); 
         else check = true; 
     } while (!check) ;
 
-    printf(">> description >> "); 
+    printf("\n>> description >> "); 
     scanf("%[^\n]", desc); 
     getchar();
 
@@ -566,9 +567,9 @@ void upload(char *uploader) {
         printf(">> borrow price (per minute) >> "); 
         scanf("%d", &price);
         getchar();
-        if (!(price > 0)) {
+        if (price <= 0) {
             puts("out of range!"); 
-        }
+        } else check = true; 
     } while (!check);
 
     check = false; 
@@ -576,17 +577,38 @@ void upload(char *uploader) {
         printf(">> duration (in minute) >> "); 
         scanf("%d", &duration);
         getchar();
-        if (!(duration > 0)) {
+        if (duration <= 0 ) {
             puts("out of range!"); 
-        }
+        } else check = true; 
     } while (!check);
 
-    puts(">> genres, separated by comma"); 
-    puts("available genres: romance, drama, action, mecha, horror, fantasy, comedy, adventure"); 
-    printf(">> ");
+    check = true; 
+    do {
+        puts(">> genres, separated by comma"); 
+        puts("available genres: romance, drama, action, mecha, horror, fantasy, comedy, adventure"); 
+        printf(">> ");
+        scanf("%s", genre); 
 
-    FILE *filmData = fopen("./film/films.txt", "a"); 
-    fprintf(filmData, "%s#%s#%d#%d#%s#%s\n", title, desc, price, duration, genre, uploader);
+        char *allGenre[8] = {"romance", "drama", "action", "mecha", "horror", "fantasy", "comedy", "adventure"};
+        char *split = strtok(genre, ",");
+        while (split) {
+            for (int i = 0; i < 8; i++) {
+                if (strcmp(split, allGenre[i]) == 0) 
+                    continue; 
+                else {
+                    check = false; 
+                    break; 
+                }
+            }
+        }
+        if (!check) {
+            puts("invalid genres!"); 
+            break; 
+        } else check == true;
+    } while (!check);
+
+    FILE *filmData = fopen("./films/films.txt", "a"); 
+    fprintf(filmData, "\n%s#%s#%d#%d#%s#%s", title, desc, price, duration, genre, uploader);
     fclose(filmData);
 
     puts("Film Uploaded"); 
