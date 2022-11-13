@@ -18,7 +18,7 @@ struct User {
 } *user_root = NULL; 
 
 struct Film { 
-    char title[255], description[255], uploader[255]; 
+    char description[255], uploader[255]; 
     int duration, price; 
     int endofString; 
     Film *child[char_size];
@@ -70,6 +70,10 @@ Film *trie_film(Film *root, char *title, char *description, char *uploader,
         current = current->child[*title];
         title++;
     }
+    strcpy(current->description, description);
+    strcpy(current->uploader, uploader); 
+    current->price = price; 
+    current->duration = duration;
     current->endofString = 1; 
 }
 
@@ -135,6 +139,7 @@ void signup();
 void home(char *str, int i); 
 void findMovie(); 
 void favourites(char *str); 
+void upload(char *str);
 
 int main() { 
     user_root = newUser();
@@ -352,7 +357,7 @@ void signup() {
     } while (!check);
 
     FILE *userData = fopen("./users/users.txt", "a"); 
-    fprintf(userData, "\n%s#%s#%d#%s", user, pwd, 300, '-'); 
+    fprintf(userData, "\n%s#%s#%d#%s", user, pwd, 300, "-"); 
     fclose(userData); 
 
     puts("\nRegister Success"); 
@@ -409,15 +414,52 @@ void home(char *name, int money) {
     }
 }
 
+void suggest(Film *root, char *prefix) {
+    if (root->endofString) 
+        printf("%s\n", prefix); 
+
+    for (int i = 0; i < char_size; i++) {
+        if (root->child[i]) {
+            char s[256] = {0};
+            snprintf(s, sizeof(s)+1, "%s%c", prefix, (char)i);
+            suggest(root->child[i], s); 
+        }
+    }
+}
+
+void autocomplete(Film *root, char *wordBuffer) {
+    if (!root)
+        return; 
+    
+    if (root->endofString)
+        //todo print something
+    
+    for (int i = 0; i < strlen(wordBuffer); i++) { // misal Y U S
+        if (!root->child[wordBuffer[i]]) {
+            puts("nothing found..."); 
+            return; 
+        }
+        root = root->child[wordBuffer[i]];
+    }
+    // kita ada di cabang S
+
+    if (root->child) { // apakah si cabang S punya cabang lagi 
+        char str[256] = {0}; 
+        snprintf(str, sizeof(wordBuffer), "%s", wordBuffer);
+        suggest(*root->child, str); 
+    }
+}
+
 void findMovie() {
     FILE *filmList = fopen("./films/films.txt", "r"); 
     char title[255], desc[255], genre[255], up[255], c; 
     int price, dur; 
-    fscanf(filmList, "\n");
+    // fscanf(filmList, "\n");
     while (!feof(filmList)) {
-        fscanf(filmList, "%[^#]#%[^#]#%d#%d#%[^#]#%[^\n]\n", title, desc, &price, &dur, genre, up);
+        fscanf(filmList, "\n%[^#]#%[^#]#%d#%d#%[^#]#%[^\n]", title, desc, &price, &dur, genre, up);
 
         trie_film(film_root, title, desc, up, price, dur); 
+        puts("HAIIII"); 
         char *split = strtok(genre, ","); 
         while (split) {
             chain_genre(create_genre(title, split)); 
@@ -426,12 +468,25 @@ void findMovie() {
     }
     fclose(filmList);
 
-    printf(">> search >> "); 
-    while ((c = getch()) != 13) {
-        putch(c); 
+    char wordBuffer[255];
+    int index = 0;  
+    do {
+        system("cls");
+        printf(">> search >> %s", wordBuffer); 
         puts("\nResults:");
-        //TODO update view after every word
-    }
+        if (!wordBuffer)
+            autocomplete(film_root, wordBuffer);
+        else {
+            c = getch(); 
+            wordBuffer[index] = c; 
+            index++;
+            autocomplete(film_root, wordBuffer);
+        }
+    } while (c != 13);
+
+    system("cls"); 
+    puts("check detail of film: "); 
+    getch(); 
 }
 
 void favourites(char *user) {
@@ -533,7 +588,7 @@ void upload(char *uploader) {
     FILE *filmData = fopen("./film/films.txt", "a"); 
     fprintf(filmData, "%s#%s#%d#%d#%s#%s\n", title, desc, price, duration, genre, uploader);
     fclose(filmData);
-    
+
     puts("Film Uploaded"); 
     printf("press any key to continue..."); 
     getch(); 
