@@ -13,19 +13,24 @@ public class Main {
                 playerFile.createNewFile();
             } catch (IOException e) {e.printStackTrace();}
             users.clear();
-            System.out.println("""
-                    1. Login
-                    2. Register
-                    3. Exit""");
+            System.out.println("1. Login\n" +
+                    "2. Register\n" +
+                    "3. Exit");
             System.out.print(">> ");
             int choose = sc.nextInt();
             sc.nextLine();
             switch (choose) {
-                case 1 -> login();
-                case 2 -> register();
-                case 3 -> System.exit(0);
-                default -> {
-                }
+                case 1 :
+                    login();
+                    break;
+                case 2 :
+                    register();
+                    break;
+                case 3 :
+                    System.exit(0);
+                    break;
+                default :
+                    break;
             }
         }
     }
@@ -82,8 +87,21 @@ public class Main {
     }
 
     private void home(String player, int score) {
-        System.out.println("okaeri!!!");
-        sc.nextLine();
+        System.out.println("1. Play game\n" +
+                "2. View scoreboard\n" +
+                "3. Exit");
+        int choose = sc.nextInt(); sc.nextLine();
+        switch (choose) {
+            case 1:
+                game();
+                break;
+            case 2:
+                scoreboard();
+                break;
+            case 3:
+                return ;
+            default: break;
+        }
     }
     public static void main (String[]args){
         new Main();
