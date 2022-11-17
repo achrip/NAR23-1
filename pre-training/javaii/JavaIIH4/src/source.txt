@@ -1,0 +1,20 @@
+food#Steamed Rice#55000#12#Asian#0
+food#Soto Mie Bogor#35000#9#Asian#1
+food#Soto Betawi#30000#10#Asian#1
+food#Spaghetti al Tonno#150000#15#Western#0
+food#Ravioli Truffle#120000#16#Western#1
+food#Pappardelle Ragu#180000#13#Western#0
+food#Whole Roast Baby Chicken#119000#14#Italian#0
+food#Pan Seared Barramundi#159000#12#Italian#0
+food#Crispy Chicken Salmon#79000#11#Italian#0
+beverage#Caramel Macchiato#50000#7#L
+beverage#Signature Chocolate#37000#6#M
+beverage#Hazelnut Latte#55000#7#L
+beverage#Double Iced Shaken#27500#5#S
+beverage#Vanilla Latte#35000#6#M
+dessert#Chocolate Shortbread#20000#10#1
+dessert#Carrot Cake#15000#8#1
+dessert#Chocolate Chunk#22000#9#0
+dessert#Granola Bar#17000#12#1
+dessert#Salted Caramel Pecan Bar#30000#7#0
+dessert#Raspberry and Coconut Leaf#25000#8#1
