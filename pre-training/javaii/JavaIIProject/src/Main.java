@@ -1,10 +1,14 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     private final Scanner sc = new Scanner(System.in);
     private ArrayList<User> users = new ArrayList<>();
+    private ArrayList<Menu> menu = new ArrayList<>();
+//    private HashMap
 
     public Main() {
         while (true) {
@@ -17,8 +21,18 @@ public class Main {
                     "2. Register\n" +
                     "3. Exit");
             System.out.print(">> ");
-            int choose = sc.nextInt();
-            sc.nextLine();
+            int choose = 0;
+            do {
+                try {
+                    choose = sc.nextInt();
+                    sc.nextLine();
+                } catch (InputMismatchException e) {
+                    System.out.println("Input a number");
+                    sc.next();
+                    System.out.print(">> ");
+                }
+            } while (!(choose > 0 && choose < 4));
+
             switch (choose) {
                 case 1 :
                     login();
@@ -87,20 +101,61 @@ public class Main {
     }
 
     private void home(String player, int score) {
+        int choose = 0;
+        System.out.printf("%-25s | %-25s\n", player, score);
         System.out.println("1. Play game\n" +
                 "2. View scoreboard\n" +
                 "3. Exit");
-        int choose = sc.nextInt(); sc.nextLine();
+        System.out.print(">> ");
+        do {
+            try {
+                choose = sc.nextInt();
+                sc.nextLine();
+            } catch (InputMismatchException e) {
+                System.out.println("Input a number");
+                sc.next();
+                System.out.print(">> ");
+            }
+        } while (!(choose > 0 && choose < 4));
         switch (choose) {
             case 1:
-                game();
+                game(score);
                 break;
             case 2:
-                scoreboard();
+//                scoreboard();
                 break;
             case 3:
                 return ;
             default: break;
+        }
+    }
+    private void game(int score) {
+//        try {
+//            BufferedReader br = new BufferedReader(new FileReader("src/drink.txt"));
+//            String s;
+//            while ((s = br.readLine()) != null) {
+//                String[] arr = s.split("#");
+//                menu.add(new Drink())
+//            }
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        Game gem = new Game();
+
+        gem.init();
+        while (true) {
+            try {
+                Thread.sleep(1);
+                System.out.println(); // change this with cls();
+                System.out.printf("Time: %d, Life: %d, Score: %d\n", gem.getTime(), gem.getLife(), score);
+                System.out.println();
+                System.out.println();
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     public static void main (String[]args){

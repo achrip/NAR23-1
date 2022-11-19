@@ -1,7 +1,23 @@
 public class Game implements Runnable{
 
     private Thread t;
-    private int life, time;
+    private int life = 5, time = 0;
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
 
     public void init() {
         if (t == null)
@@ -9,5 +25,15 @@ public class Game implements Runnable{
         t.start();
     }
     @Override
-    public void run() {}
+    public void run() {
+        while (true) {
+            try {
+//                System.out.printf("Time: %d", getTime());
+                Thread.sleep(1000);
+                setTime(getTime() + 1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
