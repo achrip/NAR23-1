@@ -2,11 +2,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
 public class Food extends Menu{
-    private Vector<Food> foods = new Vector<>();
+    private static List<Food> foods = Collections.synchronizedList(new Vector<>());
     private String foodName;
     private int foodPrice;
 
@@ -25,7 +27,6 @@ public class Food extends Menu{
             while ((s = br.readLine()) != null) {
                 String[] arr = s.split("#");
                 foods.add(new Food(arr[0], Integer.parseInt(arr[2])));
-                System.out.println(foods.size());
             }
         } catch (FileNotFoundException e) {
             System.out.println("File Not Found!");

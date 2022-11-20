@@ -2,11 +2,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 
 public class Drink extends Menu{
-    private Vector<Drink> drinks = new Vector<>() ;
+    private static List<Drink> drinks = Collections.synchronizedList(new Vector<>());
     private String drinkName;
     private int drinkPrice;
 
