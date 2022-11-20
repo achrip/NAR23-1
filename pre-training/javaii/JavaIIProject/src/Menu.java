@@ -1,5 +1,12 @@
-public class Menu extends Customer{
+public class Menu {
 
-//    private String me
+    private boolean isDone = false;
 
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
 }

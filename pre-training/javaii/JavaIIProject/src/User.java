@@ -24,6 +24,3 @@ public class User {
         this.score = i;
     }
 }
-
-// kasarnya kaya bikin anak, kan kita mau anaknya itu unik; punya nama yang beda/bagus, punya tampang yang menawan
-//

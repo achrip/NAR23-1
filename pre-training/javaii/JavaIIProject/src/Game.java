@@ -28,7 +28,6 @@ public class Game implements Runnable{
     public void run() {
         while (true) {
             try {
-//                System.out.printf("Time: %d", getTime());
                 Thread.sleep(1000);
                 setTime(getTime() + 1);
             } catch (InterruptedException e) {

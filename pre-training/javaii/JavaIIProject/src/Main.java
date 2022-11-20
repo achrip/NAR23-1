@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
     private final Scanner sc = new Scanner(System.in);
     private ArrayList<User> users = new ArrayList<>();
-    private ArrayList<Menu> menu = new ArrayList<>();
+    private Customer cust = new Customer();
 //    private HashMap
 
     public Main() {
@@ -122,7 +122,7 @@ public class Main {
                 game(score);
                 break;
             case 2:
-//                scoreboard();
+                scoreboard(player, score);
                 break;
             case 3:
                 return ;
@@ -130,32 +130,27 @@ public class Main {
         }
     }
     private void game(int score) {
-//        try {
-//            BufferedReader br = new BufferedReader(new FileReader("src/drink.txt"));
-//            String s;
-//            while ((s = br.readLine()) != null) {
-//                String[] arr = s.split("#");
-//                menu.add(new Drink())
-//            }
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
         Game gem = new Game();
-
         gem.init();
+        cust.init();
         while (true) {
             try {
                 Thread.sleep(1);
                 System.out.println(); // change this with cls();
                 System.out.printf("Time: %d, Life: %d, Score: %d\n", gem.getTime(), gem.getLife(), score);
-                System.out.println();
-                System.out.println();
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    public void scoreboard(String player, int score) {
+        for (User u : users) {
+            if (player.equals(u.getUsername())) {
+                System.out.printf(" %-25s| %-25d\n", player, score);
+            }
+            System.out.printf(" %-25s| %-25d", u.getUsername(), u.getScore());
         }
     }
     public static void main (String[]args){
